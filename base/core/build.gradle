@@ -1,0 +1,27 @@
+apply from: "$rootDir/common-android-library.gradle"
+dependencies {
+
+    //Support Libraries
+    api SupportLibraries.appCompat
+    api SupportLibraries.design
+    api SupportLibraries.recyclerView
+    api SupportLibraries.constraintLayout
+    api SupportLibraries.androidXcore
+    api SupportLibraries.androidXFragment
+    api SupportLibraries.androidXActivityKtx
+    api SupportLibraries.androidXFragmentKtx
+
+    //Libraries
+    api Libraries.viewModel
+    //api Libraries.lifecycleExtensions
+    api Libraries.lifecycleRuntime
+    api Libraries.coroutinesCore
+    api Libraries.coroutinesAndroid
+    api Libraries.retrofit
+    api Libraries.gson
+    api Libraries.okHttp
+    api Libraries.logInterceptor
+    api Libraries.daggerHilt
+    kapt Libraries.daggerCompiler
+
+}

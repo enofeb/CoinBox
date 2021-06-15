@@ -1,0 +1,6 @@
+rootProject.name = "CoinBox"
+include ':app'
+include ':base'
+include ':base:core'
+include ':presentation'
+include ':presentation:dashboard'

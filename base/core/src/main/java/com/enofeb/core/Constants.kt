@@ -3,6 +3,9 @@ package com.enofeb.core
 class Constants private constructor() {
 
     companion object {
-        //Constants will be come here
+        /*
+        * Api version
+        */
+        const val API_VS = "v2"
     }
 }

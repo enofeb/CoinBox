@@ -14,4 +14,9 @@ object Modules {
      */
     const val dashboard = "$DIRECTORY_PRESENTATION:dashboard"
 
+    /*
+     * Presentation modules
+     */
+    const val price = "$DIRECTORY_PRESENTATION:price"
+
 }

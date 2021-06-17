@@ -1,0 +1,7 @@
+apply from: "$rootDir/common-android-library.gradle"
+apply from: "$rootDir/core-dependencies.gradle"
+
+dependencies {
+    implementation Libraries.daggerHilt
+    kapt Libraries.daggerCompiler
+}

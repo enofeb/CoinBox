@@ -4,8 +4,8 @@ import com.enofeb.core.constants.ApiConstants.Companion.API_PREFIX
 import com.enofeb.core.data.response.CurrencyResponse
 import retrofit2.http.GET
 
-interface PriceInterface {
+interface PriceService {
 
     @GET("${API_PREFIX}/currencies")
-    suspend fun getCurrencies(): CurrencyResponse?
+    suspend fun getCurrencies(): CurrencyResponse
 }

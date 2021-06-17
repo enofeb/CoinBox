@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CurrencyRepository {
 
-    fun getServices(): Flow<CurrencyResponse>?
+    fun getServices(): Flow<CurrencyResponse>
 }

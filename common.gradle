@@ -29,6 +29,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    kotlinOptions {
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerVersion '1.4.32'
+    }
 }
 
 kapt {
@@ -41,4 +50,8 @@ repositories {
 
 dependencies {
     implementation CoreLibraries.kotlin
+    implementation Libraries.compose
+    implementation Libraries.composeMaterial
+    implementation Libraries.composeTool
+    implementation Libraries.composeActivity
 }

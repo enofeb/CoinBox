@@ -18,5 +18,6 @@ object Versions {
     const val okHttpVersion = "5.0.0-alpha.2"
     const val okHttpLoggingInterceptorVersion = "5.0.0-alpha.2"
     const val daggerHilt = "2.37"
-
+    const val compose = "1.0.0-beta09"
+    const val composeActivity = "1.3.0-beta02"
 }

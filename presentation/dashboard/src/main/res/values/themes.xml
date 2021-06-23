@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="Theme.CoinBox.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.CoinBox.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.CoinBox.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

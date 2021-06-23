@@ -35,11 +35,15 @@ object Libraries {
         "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLoggingInterceptorVersion}"
     const val daggerHilt = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
     const val daggerCompiler = "com.google.dagger:hilt-compiler:${Versions.daggerHilt}"
-    //Dagger hilt will come here
+    const val compose = "androidx.compose.ui:ui:${Versions.compose}"
+    const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
+    const val composeTool = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
 }
 
 object TestLibraries {
 
     const val jUnit = "junit:junit:${Versions.jUnitVersion}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCoreVersion}"
+    const val composeTest = "androidx.compose.ui:ui-test-junit4:${Versions.composeActivity}"
 }

@@ -39,6 +39,12 @@ object Libraries {
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
     const val composeTool = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
+    const val navigationComponent =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
+    const val navigationComponentUi =
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
+    const val navigationComponentDynamic =
+        "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}"
 }
 
 object TestLibraries {

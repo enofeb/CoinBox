@@ -20,4 +20,5 @@ object Versions {
     const val daggerHilt = "2.37"
     const val compose = "1.0.0-beta09"
     const val composeActivity = "1.3.0-beta02"
+    const val navigationComponent = "2.3.5"
 }

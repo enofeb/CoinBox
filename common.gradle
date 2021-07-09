@@ -55,4 +55,7 @@ dependencies {
     implementation Libraries.composeMaterial
     implementation Libraries.composeTool
     implementation Libraries.composeActivity
+    implementation Libraries.navigationComponent
+    implementation Libraries.navigationComponentUi
+    implementation Libraries.navigationComponentDynamic
 }

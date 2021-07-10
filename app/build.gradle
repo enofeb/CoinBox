@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    implementation project(Modules.dashboard)
     implementation CoreLibraries.kotlin
     implementation Libraries.daggerHilt
     kapt Libraries.daggerCompiler

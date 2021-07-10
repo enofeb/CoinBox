@@ -37,7 +37,7 @@ class SplashActivity : ComponentActivity() {
         try {
             val intent = Intent(
                 this,
-                Class.forName("com.enofeb.dashboard.MainActivity")
+                Class.forName("com.enofeb.dashboard.HomeActivity")
             )
             startActivity(intent)
         } catch (e: ClassNotFoundException) {

@@ -1,4 +1,4 @@
-package com.enofeb.dashboard
+package com.enofeb.dashboard.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

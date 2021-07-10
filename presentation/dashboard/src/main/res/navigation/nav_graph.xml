@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home">
 
     <fragment
         android:id="@+id/home"
@@ -8,4 +10,6 @@
         android:label="@string/title_home">
         <!-- Navigations will be come here!-->
     </fragment>
+
+    <!--    <include-dynamic app:graph="@navigation/nav_price_graph"/>-->
 </navigation>

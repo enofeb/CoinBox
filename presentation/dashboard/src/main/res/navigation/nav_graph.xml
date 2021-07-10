@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.enofeb.dashboard.home.HomeFragment"
+        android:label="@string/title_home">
+        <!-- Navigations will be come here!-->
+    </fragment>
+</navigation>

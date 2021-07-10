@@ -2,4 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_price_graph">
 
+    <fragment
+        android:id="@+id/price"
+        android:name="com.enofeb.price.PriceFragment"
+        android:label="@string/title_price">
+        <!-- Navigations will be come here!-->
+    </fragment>
+
 </navigation>

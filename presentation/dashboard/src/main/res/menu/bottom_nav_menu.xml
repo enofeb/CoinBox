@@ -4,4 +4,8 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
+    <item
+        android:id="@+id/price"
+        android:icon="@drawable/ic_calculation"
+        android:title="@string/title_price" />
 </menu>

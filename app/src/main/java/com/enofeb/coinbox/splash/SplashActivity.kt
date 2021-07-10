@@ -34,15 +34,20 @@ class SplashActivity : ComponentActivity() {
     }
 
     private fun navigateToHome() {
+
         try {
             val intent = Intent(
                 this,
-                Class.forName("com.enofeb.dashboard.HomeActivity")
+                Class.forName(HOME_PATH)
             )
             startActivity(intent)
         } catch (e: ClassNotFoundException) {
             e.printStackTrace()
         }
+    }
+
+    companion object {
+        private const val HOME_PATH = "com.enofeb.dashboard.HomeActivity"
     }
 }
 

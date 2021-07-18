@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.enofeb.coinbox.home.HomeActivity
 import kotlinx.coroutines.*
 
 class SplashActivity : ComponentActivity() {
@@ -38,16 +39,12 @@ class SplashActivity : ComponentActivity() {
         try {
             val intent = Intent(
                 this,
-                Class.forName(HOME_PATH)
+                HomeActivity::class.java
             )
             startActivity(intent)
         } catch (e: ClassNotFoundException) {
             e.printStackTrace()
         }
-    }
-
-    companion object {
-        private const val HOME_PATH = "com.enofeb.dashboard.home.HomeActivity"
     }
 }
 

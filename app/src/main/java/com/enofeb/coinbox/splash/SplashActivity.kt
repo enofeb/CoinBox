@@ -47,7 +47,7 @@ class SplashActivity : ComponentActivity() {
     }
 
     companion object {
-        private const val HOME_PATH = "com.enofeb.dashboard.HomeActivity"
+        private const val HOME_PATH = "com.enofeb.dashboard.home.HomeActivity"
     }
 }
 

@@ -8,8 +8,9 @@
         <entry key="../../../../layout/compose-model-1625930007424.xml" value="0.4154929577464789" />
         <entry key="../../../../layout/compose-model-1626601703754.xml" value="0.740072202166065" />
         <entry key="../../../../layout/compose-model-1626610516151.xml" value="0.9566787003610109" />
+        <entry key="app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.1215" />
         <entry key="app/src/main/res/layout/activity_demo.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.3684036254882813" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="presentation/dashboard/src/main/res/layout/activity_home.xml" value="0.1" />

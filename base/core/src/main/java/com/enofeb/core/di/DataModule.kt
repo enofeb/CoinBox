@@ -1,5 +1,6 @@
 package com.enofeb.core.di
 
+import com.enofeb.core.domain.price.PriceRepository
 import com.enofeb.core.domain.price.PriceRepositoryImpl
 import com.enofeb.core.service.price.PriceService
 import dagger.Module
@@ -20,6 +21,6 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun providePriceRepository(priceService: PriceService) =
+    fun providePriceRepository(priceService: PriceService): PriceRepository =
         PriceRepositoryImpl(priceService)
 }

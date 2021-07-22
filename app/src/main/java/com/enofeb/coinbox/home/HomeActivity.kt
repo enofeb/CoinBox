@@ -8,7 +8,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.enofeb.coinbox.R
 import com.enofeb.coinbox.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController

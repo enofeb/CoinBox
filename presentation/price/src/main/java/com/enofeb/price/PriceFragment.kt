@@ -7,8 +7,14 @@ import android.view.ViewGroup
 import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 
-class PriceFragment : Fragment(){
+@AndroidEntryPoint
+class PriceFragment : Fragment() {
+
+    private val viewModel by viewModels<PriceViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

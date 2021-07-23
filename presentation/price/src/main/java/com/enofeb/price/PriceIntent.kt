@@ -8,7 +8,7 @@ sealed class PriceIntent : UiIntent {
 
     object LoadingIntent : PriceIntent()
 
-    data class ShowCurrencyIntent(val demo: String) : PriceIntent()
+    data class LoadCurrencyIntent(val demo: String) : PriceIntent()
 
     data class ErrorState(val t: Throwable) : PriceIntent()
 }

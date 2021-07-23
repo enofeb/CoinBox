@@ -1,9 +1,9 @@
 package com.enofeb.core.base
 
 import androidx.lifecycle.ViewModel
-import com.enofeb.core.state.UiState
+import com.enofeb.core.state.intent.UiIntent
 
-abstract class BaseViewModel<US : UiState> : ViewModel() {
+abstract class BaseViewModel<UI : UiIntent> : ViewModel() {
 
-    abstract fun updateState()
+    abstract fun handleIntent(intent: UI)
 }

@@ -2,7 +2,6 @@ package com.enofeb.price
 
 import com.enofeb.core.base.BaseViewModel
 import com.enofeb.core.domain.price.PriceRepository
-import com.enofeb.core.extensions.io
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

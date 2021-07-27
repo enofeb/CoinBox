@@ -3,11 +3,13 @@ package com.enofeb.price
 import com.enofeb.core.base.BaseViewModel
 import com.enofeb.core.domain.price.PriceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 class PriceViewModel @Inject constructor(private val priceRepository: PriceRepository) :
-    BaseViewModel<PriceIntent,PriceUiState>() {
+    BaseViewModel<PriceIntent, PriceUiState>() {
 
     override fun handleIntent(intent: PriceIntent) {
         when (intent) {
@@ -15,7 +17,7 @@ class PriceViewModel @Inject constructor(private val priceRepository: PriceRepos
                 //no-op
             }
             is PriceIntent.FetchCurrencyIntent -> {
-
+                getCurrency()
             }
             else -> {
                 //no-op
@@ -23,8 +25,12 @@ class PriceViewModel @Inject constructor(private val priceRepository: PriceRepos
         }
     }
 
-    fun getCurrency() {
-        priceRepository.getCurrency()
+    private fun getCurrency() {
+        priceRepository.getCurrency().onEach {
+            //no-op
+        }.catch {
+            //no-op
+        }
     }
 
 }

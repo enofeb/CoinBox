@@ -7,20 +7,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PriceViewModel @Inject constructor(private val priceRepository: PriceRepository) :
-    BaseViewModel<PriceIntent>() {
+    BaseViewModel<PriceIntent,PriceUiState>() {
 
     override fun handleIntent(intent: PriceIntent) {
         when (intent) {
             is PriceIntent.LoadingIntent -> {
                 //no-op
             }
-            is PriceIntent.LoadCurrencyIntent -> {
+            is PriceIntent.FetchCurrencyIntent -> {
 
             }
             else -> {
                 //no-op
             }
         }
+    }
+
+    fun getCurrency() {
+        priceRepository.getCurrency()
     }
 
 }

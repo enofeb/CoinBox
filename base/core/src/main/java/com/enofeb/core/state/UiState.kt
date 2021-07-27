@@ -1,3 +1,6 @@
 package com.enofeb.core.state
 
-interface UiState
+interface UiState {
+
+    object InitialUiState : UiState
+}

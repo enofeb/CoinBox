@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class PriceViewModel @Inject constructor(private val priceRepository: PriceRepository) :
-    BaseViewModel<PriceIntent, PriceUiState>() {
+class PriceViewModel @Inject constructor(
+    private val priceRepository: PriceRepository,
+    override val initialState: PriceUiState
+) : BaseViewModel<PriceIntent, PriceUiState>() {
 
     override fun handleIntent(intent: PriceIntent) {
         when (intent) {

@@ -21,12 +21,12 @@ class PriceFragment :
         setContent {
             Text("This is price fragment!")
         }
-        triggerIntent(PriceIntent.FetchCurrencyIntent)
+        triggerIntent(PriceIntent.FetchCoinsIntent)
     }
 
     override fun render(state: PriceUiState) {
         when (state) {
-            is PriceUiState.ShowCurrency -> {
+            is PriceUiState.ShowCoins -> {
                 //no-op
             }
         }

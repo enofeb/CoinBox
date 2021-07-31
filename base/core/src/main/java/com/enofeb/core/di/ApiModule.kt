@@ -35,7 +35,6 @@ object ApiModule {
             addInterceptor(loggingInterceptor)
             addInterceptor(Interceptor { chain ->
                 val builder = chain.request().newBuilder()
-                builder.header("CB-ACCESS-KEY", API_KEY)
                 return@Interceptor chain.proceed(builder.build())
             })
             connectTimeout(ApiConstants.TIMEOUT_MILLISECOND, TimeUnit.MILLISECONDS)

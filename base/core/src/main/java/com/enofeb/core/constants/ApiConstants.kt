@@ -7,9 +7,11 @@ class ApiConstants private constructor() {
         /*
          * Api version
          */
-        const val API_PREFIX = "/v2"
+        const val API_PREFIX = "/api"
 
-        const val BASE_URL = "https://api.coinbase.com/"
+        const val API_VERSION = "/v3"
+
+        const val BASE_URL = "https://api.coingecko.com"
         const val API_KEY = "KM04dLO6He8BRlYi"
 
         const val TIMEOUT_MILLISECOND = 60000L

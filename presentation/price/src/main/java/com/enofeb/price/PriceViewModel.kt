@@ -21,8 +21,8 @@ class PriceViewModel @Inject constructor(
             is PriceIntent.LoadingIntent -> {
                 //no-op
             }
-            is PriceIntent.FetchCurrencyIntent -> {
-                getCurrency()
+            is PriceIntent.FetchCoinsIntent -> {
+                getCoinList()
             }
             else -> {
                 //no-op
@@ -30,9 +30,9 @@ class PriceViewModel @Inject constructor(
         }
     }
 
-    private fun getCurrency() {
+    private fun getCoinList() {
         priceRepository.getCurrency().onEach {
-            setState(PriceUiState.ShowCurrency(it?.currencyList))
+            setState(PriceUiState.ShowCoins(it))
         }.launchIn(viewModelScope)
     }
 

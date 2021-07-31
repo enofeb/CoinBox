@@ -15,4 +15,8 @@ abstract class BaseViewModel<UI : UiIntent, US : UiState> : ViewModel() {
     val uiState: StateFlow<US> = _uiState
 
     abstract fun handleIntent(intent: UI)
+
+    fun setState(state: US) {
+        _uiState.value = state
+    }
 }

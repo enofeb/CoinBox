@@ -7,7 +7,7 @@ object Versions {
     const val xCoreVersion = "1.5.0"
     const val viewModelVersion = "2.4.0-alpha01"
     const val lifecycleVersion = "2.3.1"
-    const val lifecycleRuntimeVersion = "2.3.1"
+    const val lifecycleRuntimeVersion = "2.4.0-alpha02"
     const val espressoCoreVersion = "3.1.0"
     const val jUnitVersion = "4.12"
     const val coroutinesVersion = "1.5.0"

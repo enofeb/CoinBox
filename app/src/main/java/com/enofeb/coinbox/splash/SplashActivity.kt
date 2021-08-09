@@ -37,7 +37,7 @@ class SplashActivity : ComponentActivity() {
             MaterialTheme {
                 InitialView()
                 splashScope.launch {
-                    delay(5000)
+                    delay(1000)
                     navigateToHome()
                 }
             }

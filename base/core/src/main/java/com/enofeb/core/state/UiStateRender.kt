@@ -1,5 +1,8 @@
 package com.enofeb.core.state
 
+import androidx.compose.runtime.Composable
+
 interface UiStateRender<UI : UiState> {
-    fun render(state: UI)
+    @Composable
+    fun Render(state: UI)
 }

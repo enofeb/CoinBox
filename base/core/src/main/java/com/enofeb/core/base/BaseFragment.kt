@@ -1,6 +1,7 @@
 package com.enofeb.core.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,16 +32,22 @@ abstract class BaseFragment<UI : UiIntent, US : UiState, VM : BaseViewModel<UI, 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
+        Log.e("ELLO", "1")
         setContent {
+            DrawScreen()
             ObserveDemo()
         }
     }
+
 
     @Composable
     private fun ObserveDemo() {
         val viewState = viewModel.uiState.collectAsState().value
         Render(viewState)
     }
+
+    @Composable
+    abstract fun DrawScreen()
 
     fun triggerIntent(intent: UI) {
         viewModel.handleIntent(intent)

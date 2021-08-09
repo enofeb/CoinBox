@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,9 +18,12 @@ import com.enofeb.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.enofeb.core.data.price.Coin
 
 @AndroidEntryPoint
@@ -39,6 +45,11 @@ class PriceFragment :
                 //no-op
             }
         }
+    }
+
+    @Composable
+    override fun DrawScreen() {
+        // Customize your screen in these method
     }
 }
 

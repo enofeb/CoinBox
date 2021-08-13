@@ -34,6 +34,9 @@ class PriceFragment :
             is PriceUiState.ShowCoins -> {
                 CoinList(state.coins)
             }
+            is PriceUiState.LoadingState ->{
+                //no-op
+            }
             else -> {
                 //no-op
             }
@@ -42,7 +45,7 @@ class PriceFragment :
 
     @Composable
     override fun DrawScreen() {
-        // Customize your screen in these method
+        //no-op
     }
 }
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
@@ -32,10 +33,11 @@ abstract class BaseFragment<UI : UiIntent, US : UiState, VM : BaseViewModel<UI, 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
-        Log.e("ELLO", "1")
         setContent {
-            DrawScreen()
-            ObserveDemo()
+            Column {
+                DrawScreen()
+                ObserveDemo()
+            }
         }
     }
 

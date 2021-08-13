@@ -7,5 +7,7 @@ sealed class PriceUiState : UiState {
 
     object InitialState : PriceUiState()
 
+    object LoadingState : PriceUiState()
+
     data class ShowCoins(val coins: List<Coin>?) : PriceUiState()
 }

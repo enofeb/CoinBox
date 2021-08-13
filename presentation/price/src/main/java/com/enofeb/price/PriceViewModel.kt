@@ -19,7 +19,7 @@ class PriceViewModel @Inject constructor(
     override fun handleIntent(intent: PriceIntent) {
         when (intent) {
             is PriceIntent.LoadingIntent -> {
-                //no-op
+                setState(PriceUiState.LoadingState)
             }
             is PriceIntent.FetchCoinsIntent -> {
                 getCoinList()

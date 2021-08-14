@@ -1,6 +1,6 @@
 package com.enofeb.core.domain.market
 
-import com.enofeb.core.data.price.Coin
+import com.enofeb.core.data.market.Coin
 import com.enofeb.core.extensions.knock
 import com.enofeb.core.service.market.MarketService
 import kotlinx.coroutines.flow.Flow

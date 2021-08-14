@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
-import com.enofeb.core.data.price.Coin
+import com.enofeb.core.data.market.Coin
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,6 +1,6 @@
 package com.enofeb.price
 
-import com.enofeb.core.data.price.Coin
+import com.enofeb.core.data.market.Coin
 import com.enofeb.core.state.UiState
 
 sealed class PriceUiState : UiState {

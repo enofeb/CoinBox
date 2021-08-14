@@ -1,8 +1,8 @@
 package com.enofeb.core.service.market
 
 import com.enofeb.core.constants.ApiConstants
-import com.enofeb.core.data.price.Coin
-import com.enofeb.core.data.price.CurrencyType
+import com.enofeb.core.data.market.Coin
+import com.enofeb.core.data.market.CurrencyType
 import retrofit2.http.GET
 import retrofit2.http.Query
 

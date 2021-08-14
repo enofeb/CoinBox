@@ -1,4 +1,4 @@
-package com.enofeb.core.data.price
+package com.enofeb.core.data.market
 
 enum class CurrencyType(val shortName: String) {
     USD("usd"),

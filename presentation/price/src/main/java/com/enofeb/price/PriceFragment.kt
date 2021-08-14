@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.enofeb.core.data.price.Coin
+import com.enofeb.core.data.market.Coin
 
 @AndroidEntryPoint
 class PriceFragment :

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface PriceService {
 
-    @GET("${API_PREFIX}${API_VERSION}/exchangeRates")
+    @GET("${API_PREFIX}${API_VERSION}/exchange_rates")
     suspend fun getExchangeRates()
 }

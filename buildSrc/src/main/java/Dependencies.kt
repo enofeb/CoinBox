@@ -45,6 +45,7 @@ object Libraries {
         "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
     const val navigationComponentDynamic =
         "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}"
+    const val coil = "io.coil-kt:coil-compose:${Versions.coilVersion}"
 }
 
 object TestLibraries {

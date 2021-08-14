@@ -21,4 +21,5 @@ object Versions {
     const val compose = "1.0.0-beta09"
     const val composeActivity = "1.3.0-beta02"
     const val navigationComponent = "2.3.5"
+    const val coilVersion = "1.3.2"
 }

@@ -1,7 +1,6 @@
 package com.enofeb.dashboard.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -71,7 +70,7 @@ fun CoinItem(coin: Coin) {
         Modifier
             .fillMaxWidth()
             .padding(15.dp), elevation = 10.dp,
-        backgroundColor = Color.LightGray
+        backgroundColor = Color.Black
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
             Text(text = coin.name, color = Color.White)

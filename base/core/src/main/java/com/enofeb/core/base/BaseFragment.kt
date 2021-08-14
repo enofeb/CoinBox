@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -47,7 +48,7 @@ abstract class BaseFragment<UI : UiIntent, US : UiState, VM : BaseViewModel<UI, 
     @Composable
     private fun ComposeMagic(content: @Composable () -> Unit) {
         CoinBoxTheme(darkTheme = true) {
-            Surface(color = Color.Black) {
+            Surface(color = MaterialTheme.colors.background) {
                 content()
             }
         }

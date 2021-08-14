@@ -31,7 +31,7 @@ class PriceViewModel @Inject constructor(
     }
 
     private fun getCoinList() {
-
+        //no-op
     }
 
 }

@@ -1,23 +1,31 @@
 package com.enofeb.dashboard.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.material.Text
-import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
+import androidx.compose.runtime.Composable
+import com.enofeb.core.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment :
+    BaseFragment<HomeIntent, HomeUiState, HomeViewModel>(HomeViewModel::class.java) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = ComposeView(requireContext()).apply {
-        setContent {
-            Text("This is home fragment!")
+    @Composable
+    override fun Render(state: HomeUiState) {
+        when (state) {
+            is HomeUiState.ShowMarket -> {
+
+            }
+            is HomeUiState.LoadingState -> {
+                //no-op
+            }
+            else -> {
+                //no-op
+            }
         }
+    }
+
+    @Composable
+    override fun DrawScreen() {
+        //no-op
     }
 
 }

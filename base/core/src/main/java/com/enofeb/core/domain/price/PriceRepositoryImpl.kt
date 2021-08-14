@@ -7,9 +7,4 @@ import kotlinx.coroutines.flow.Flow
 
 class PriceRepositoryImpl(private val priceService: PriceService) : PriceRepository {
 
-    override fun getCurrency(): Flow<List<Coin>?> {
-        return knock {
-            priceService.getCoinList()
-        }
-    }
 }

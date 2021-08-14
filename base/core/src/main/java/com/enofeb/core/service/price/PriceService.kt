@@ -7,6 +7,5 @@ import retrofit2.http.GET
 
 interface PriceService {
 
-    @GET("${API_PREFIX}${API_VERSION}/coins/list")
-    suspend fun getCoinList(): List<Coin>?
+    suspend fun getCoinMarket()
 }

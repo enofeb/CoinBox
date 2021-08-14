@@ -6,5 +6,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface PriceRepository : Repository {
 
-    fun getCurrency(): Flow<List<Coin>?>
 }

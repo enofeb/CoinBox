@@ -31,9 +31,7 @@ class PriceViewModel @Inject constructor(
     }
 
     private fun getCoinList() {
-        priceRepository.getCurrency().onEach {
-            setState(PriceUiState.ShowCoins(it))
-        }.launchIn(viewModelScope)
+
     }
 
 }

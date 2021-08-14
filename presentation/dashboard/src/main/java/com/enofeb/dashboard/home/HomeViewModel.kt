@@ -14,7 +14,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomeIntent, HomeUiState>() {
 
     override val initialState: HomeUiState
-        get() = HomeUiState.InitialState
+        get() = HomeUiState.LoadingState
 
     override fun handleIntent(intent: HomeIntent) {
         when (intent) {

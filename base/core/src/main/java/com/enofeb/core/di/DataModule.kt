@@ -1,7 +1,10 @@
 package com.enofeb.core.di
 
+import com.enofeb.core.domain.market.MarketRepository
+import com.enofeb.core.domain.market.MarketRepositoryImpl
 import com.enofeb.core.domain.price.PriceRepository
 import com.enofeb.core.domain.price.PriceRepositoryImpl
+import com.enofeb.core.service.market.MarketService
 import com.enofeb.core.service.price.PriceService
 import dagger.Module
 import dagger.Provides
@@ -21,6 +24,16 @@ object DataModule {
 
     @Provides
     @Singleton
+    fun provideMarketServices(retrofit: Retrofit): MarketService =
+        retrofit.create(MarketService::class.java)
+
+    @Provides
+    @Singleton
     fun providePriceRepository(priceService: PriceService): PriceRepository =
         PriceRepositoryImpl(priceService)
+
+    @Provides
+    @Singleton
+    fun provideMarketRepository(marketService: MarketService): MarketRepository =
+        MarketRepositoryImpl(marketService)
 }

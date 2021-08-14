@@ -2,7 +2,7 @@ package com.enofeb.dashboard.home
 
 import androidx.lifecycle.viewModelScope
 import com.enofeb.core.base.BaseViewModel
-import com.enofeb.core.domain.price.PriceRepository
+import com.enofeb.core.domain.market.MarketRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val priceRepository: PriceRepository
+    private val marketRepository: MarketRepository
 ) : BaseViewModel<HomeIntent, HomeUiState>() {
 
     override val initialState: HomeUiState
@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getMarket() {
-        priceRepository.getCoinMarket().onEach {
+        marketRepository.getCoinMarket().onEach {
             setState(HomeUiState.ShowMarket(it))
         }.launchIn(viewModelScope)
     }

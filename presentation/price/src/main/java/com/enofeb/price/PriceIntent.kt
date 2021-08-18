@@ -8,7 +8,7 @@ sealed class PriceIntent : UiIntent {
 
     object LoadingIntent : PriceIntent()
 
-    object FetchCoinsIntent : PriceIntent()
+    object FetchExchangesIntent : PriceIntent()
 
     data class ErrorState(val t: Throwable) : PriceIntent()
 }

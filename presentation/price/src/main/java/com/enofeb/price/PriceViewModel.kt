@@ -21,8 +21,8 @@ class PriceViewModel @Inject constructor(
             is PriceIntent.LoadingIntent -> {
                 setState(PriceUiState.LoadingState)
             }
-            is PriceIntent.FetchCoinsIntent -> {
-                getCoinList()
+            is PriceIntent.FetchExchangesIntent -> {
+                getExchanges()
             }
             else -> {
                 //no-op
@@ -30,8 +30,10 @@ class PriceViewModel @Inject constructor(
         }
     }
 
-    private fun getCoinList() {
-        //no-op
+    private fun getExchanges() {
+        priceRepository.getExchangeRates().onEach {
+            setState(PriceUiState.FetchExchanges(it))
+        }.launchIn(viewModelScope)
     }
 
 }

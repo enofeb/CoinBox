@@ -1,6 +1,7 @@
 package com.enofeb.price
 
 import com.enofeb.core.data.market.Coin
+import com.enofeb.core.data.price.exchange.ExchangeRateResponse
 import com.enofeb.core.state.UiState
 
 sealed class PriceUiState : UiState {
@@ -9,5 +10,5 @@ sealed class PriceUiState : UiState {
 
     object LoadingState : PriceUiState()
 
-    data class ShowCoins(val coins: List<Coin>?) : PriceUiState()
+    data class FetchExchanges(val exchanges: ExchangeRateResponse?) : PriceUiState()
 }

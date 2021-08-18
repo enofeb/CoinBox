@@ -1,6 +1,7 @@
 package com.enofeb.price
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,16 +26,15 @@ class PriceFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        triggerIntent(PriceIntent.FetchCoinsIntent)
+        triggerIntent(PriceIntent.FetchExchangesIntent)
     }
 
     @Composable
     override fun Render(state: PriceUiState) {
         when (state) {
-            is PriceUiState.ShowCoins -> {
-                CoinList(state.coins)
+            is PriceUiState.FetchExchanges -> {
             }
-            is PriceUiState.LoadingState ->{
+            is PriceUiState.LoadingState -> {
                 //no-op
             }
             else -> {
@@ -46,33 +46,6 @@ class PriceFragment :
     @Composable
     override fun DrawScreen() {
         //no-op
-    }
-}
-
-@Composable
-fun CoinList(coins: List<Coin>?) {
-    coins?.let { list ->
-        LazyColumn {
-            items(
-                items = list,
-                itemContent = { CoinItem(coin = it) })
-        }
-
-    }
-}
-
-@Composable
-fun CoinItem(coin: Coin) {
-    Card(
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(15.dp), elevation = 10.dp,
-        backgroundColor = Color.LightGray
-    ) {
-        Column(modifier = Modifier.padding(15.dp)) {
-            Text(text = coin.name, color = Color.White)
-        }
     }
 }
 

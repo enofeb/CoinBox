@@ -3,9 +3,7 @@ package com.enofeb.price
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import com.enofeb.core.base.BaseFragment
@@ -20,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import kotlin.math.exp
 
 @AndroidEntryPoint
@@ -52,12 +51,36 @@ class PriceFragment :
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row {
-                SellTextField()
-                CurrencyDropDown()
+                Column(
+                    modifier = Modifier
+                        .weight(4f)
+                        .padding(start = 15.dp, end = 15.dp)
+                ) {
+                    SellTextField()
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(end = 15.dp)
+                ) {
+                    CurrencyDropDown()
+                }
             }
-            Row{
-                BuyTextField()
-                CurrencyDropDown()
+            Row(Modifier.padding(top = 15.dp)) {
+                Column(
+                    modifier = Modifier
+                        .weight(4f)
+                        .padding(start = 15.dp, end = 15.dp)
+                ) {
+                    BuyTextField()
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(end = 15.dp)
+                ) {
+                    CurrencyDropDown()
+                }
             }
         }
     }

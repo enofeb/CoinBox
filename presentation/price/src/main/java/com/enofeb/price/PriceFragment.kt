@@ -1,7 +1,9 @@
 package com.enofeb.price
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -18,28 +20,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.viewModels
 import kotlin.math.exp
 
 @AndroidEntryPoint
 class PriceFragment :
-    BaseFragment<PriceIntent, PriceUiState, PriceViewModel>(PriceViewModel::class.java) {
+    BaseFragment<PriceIntent, PriceUiState>() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        triggerIntent(PriceIntent.FetchExchangesIntent)
-    }
+    private val viewModel by viewModels<PriceViewModel>()
 
-    @Composable
-    override fun Render(state: PriceUiState) {
-        when (state) {
-            is PriceUiState.FetchExchanges -> {
-            }
-            is PriceUiState.LoadingState -> {
-                //no-op
-            }
-            else -> {
-                //no-op
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            ComposeMagic {
+                DrawScreen()
             }
         }
     }
@@ -63,7 +62,7 @@ class PriceFragment :
                         .weight(2f)
                         .padding(end = 15.dp)
                 ) {
-                    CurrencyDropDown()
+                    CurrencyDropDown(viewModel)
                 }
             }
             Row(Modifier.padding(top = 15.dp)) {
@@ -79,7 +78,7 @@ class PriceFragment :
                         .weight(2f)
                         .padding(end = 15.dp)
                 ) {
-                    CurrencyDropDown()
+                    CurrencyDropDown(viewModel)
                 }
             }
         }
@@ -109,10 +108,13 @@ fun BuyTextField() {
 }
 
 @Composable
-fun CurrencyDropDown() {
-    var expanded by remember { mutableStateOf(false) }
+fun CurrencyDropDown(viewModel: PriceViewModel) {
 
-    val currencies = listOf("BTC", "ETH", "SOL")
+    val state = viewModel.priceUiState.collectAsState().value as? PriceUiState.FetchExchanges
+
+    val currencies = state?.exchanges?.rates?.exchangeList?.map { it.unit }
+
+    var expanded by remember { mutableStateOf(false) }
 
     var selectedText by remember { mutableStateOf("") }
 
@@ -134,13 +136,20 @@ fun CurrencyDropDown() {
             readOnly = true
         )
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            currencies.forEach { label ->
-                DropdownMenuItem(onClick = { selectedText = label }) {
-                    Text(text = label)
+            currencies?.forEach { label ->
+                label?.let {
+                    DropdownMenuItem(onClick = { selectedText = it }) {
+                        Text(text = it)
+                    }
                 }
             }
         }
     }
+
+}
+
+@Composable
+fun CurrencyDropDownItem(currencies: List<String>) {
 
 }
 

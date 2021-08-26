@@ -1,7 +1,9 @@
 package com.enofeb.dashboard.home
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,11 +12,14 @@ import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
@@ -22,45 +27,48 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment :
-    BaseFragment<HomeIntent, HomeUiState, HomeViewModel>(HomeViewModel::class.java) {
+    BaseFragment<HomeIntent, HomeUiState>() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        triggerIntent(HomeIntent.FetchMarketIntent)
-    }
+    private val viewModel by viewModels<HomeViewModel>()
 
-    @Composable
-    override fun Render(state: HomeUiState) {
-        when (state) {
-            is HomeUiState.ShowMarket -> {
-                CoinList(state.coins)
-            }
-            is HomeUiState.LoadingState -> {
-                ShowProgress()
-            }
-            else -> {
-                //no-op
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            ComposeMagic {
+                DrawScreen()
             }
         }
     }
 
     @Composable
     override fun DrawScreen() {
-        //no-op
+        CoinList(viewModel)
     }
 
 }
 
 
 @Composable
-fun CoinList(coins: List<Coin>?) {
-    coins?.let { list ->
-        LazyColumn {
-            items(
-                items = list,
-                itemContent = { CoinItem(coin = it) })
+fun CoinList(viewModel: HomeViewModel) {
+    when (val state = viewModel.homeUiState.collectAsState().value) {
+        is HomeUiState.LoadingState -> {
+            ShowProgress()
         }
+        is HomeUiState.ShowMarket -> {
+            state.coins?.let { list ->
+                LazyColumn {
+                    items(
+                        items = list,
+                        itemContent = { CoinItem(coin = it) })
+                }
+            }
+        }
+        is HomeUiState.InitialState -> {
 
+        }
     }
 }
 

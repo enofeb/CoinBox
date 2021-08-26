@@ -17,36 +17,11 @@ import com.enofeb.core.state.UiStateRender
 import com.enofeb.core.state.intent.UiIntent
 import com.enofeb.core.ui.theme.CoinBoxTheme
 
-abstract class BaseFragment<UI : UiIntent, US : UiState, VM : BaseViewModel<UI, US>>(private val viewModelClass: Class<VM>) :
-    Fragment(),
-    UiStateRender<US> {
-
-    private val viewModel by lazy {
-        ViewModelProvider(this).get(viewModelClass.kotlin.java)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = ComposeView(requireContext()).apply {
-        setContent {
-            ComposeMagic {
-                DrawScreen()
-                ObserveDemo()
-            }
-        }
-    }
-
+abstract class BaseFragment<UI : UiIntent, US : UiState> :
+    Fragment() {
 
     @Composable
-    private fun ObserveDemo() {
-        val viewState = viewModel.uiState.collectAsState().value
-        Render(viewState)
-    }
-
-    @Composable
-    private fun ComposeMagic(content: @Composable () -> Unit) {
+    fun ComposeMagic(content: @Composable () -> Unit) {
         CoinBoxTheme(darkTheme = true) {
             Surface(color = MaterialTheme.colors.background) {
                 content()
@@ -56,9 +31,5 @@ abstract class BaseFragment<UI : UiIntent, US : UiState, VM : BaseViewModel<UI, 
 
     @Composable
     abstract fun DrawScreen()
-
-    fun triggerIntent(intent: UI) {
-        viewModel.handleIntent(intent)
-    }
 
 }

@@ -1,17 +1,12 @@
 package com.enofeb.price
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.enofeb.core.base.BaseViewModel
 import com.enofeb.core.di.DataModule_ProvideMarketServicesFactory
 import com.enofeb.core.domain.price.PriceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,12 +23,28 @@ class PriceViewModel @Inject constructor(
 
     val sellPriceState: StateFlow<Double?> = _sellPriceState
 
+    private val _buyPriceState: MutableStateFlow<Double?> = MutableStateFlow(0.0)
+
+    val buyPriceState: StateFlow<Double?> = _buyPriceState
+
+    private val _buyCurrencyState: MutableStateFlow<Double?> = MutableStateFlow(0.0)
+
     fun onSellPriceChange(price: Double?) {
         _sellPriceState.value = price
     }
 
+    fun onBuyCurrency(price: Double?) {
+        _buyCurrencyState.value = price
+    }
+
     init {
         getExchanges()
+
+        _sellPriceState.combine(_buyCurrencyState) { sellPrice, buyCurrency ->
+            if (sellPrice != null) {
+                _buyPriceState.value = (sellPrice * buyCurrency!!)
+            }
+        }.stateIn(viewModelScope, SharingStarted.Eagerly, "")
     }
 
     private fun getExchanges() {

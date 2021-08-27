@@ -61,6 +61,8 @@ fun PriceScreen(viewModel: PriceViewModel) {
 
     val sellPrice = viewModel.sellPriceState.collectAsState().value
 
+    val buyPrice = viewModel.buyPriceState.collectAsState().value
+
     var currencyList: List<ExchangeRate>? = remember { mutableListOf() }
 
     when (state) {
@@ -99,14 +101,16 @@ fun PriceScreen(viewModel: PriceViewModel) {
                     .weight(4f)
                     .padding(start = 15.dp, end = 15.dp)
             ) {
-                BuyTextField(sellPrice)
+                BuyTextField(buyPrice)
             }
             Column(
                 modifier = Modifier
                     .weight(2f)
                     .padding(end = 15.dp)
             ) {
-                CurrencyDropDown(currencyList)
+                CurrencyDropDown(
+                    currencyList,
+                    onCurrencyChange = { viewModel.onBuyCurrency(it.toDoubleOrNull()) })
             }
         }
     }
@@ -141,7 +145,11 @@ fun BuyTextField(price: Double?) {
 }
 
 @Composable
-fun CurrencyDropDown(currencyList: List<ExchangeRate>?, isBitcoin: Boolean = false) {
+fun CurrencyDropDown(
+    currencyList: List<ExchangeRate>?,
+    isBitcoin: Boolean = false,
+    onCurrencyChange: ((String) -> Unit)? = null
+) {
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -170,6 +178,7 @@ fun CurrencyDropDown(currencyList: List<ExchangeRate>?, isBitcoin: Boolean = fal
             currencyList?.forEach { currency ->
                 DropdownMenuItem(onClick = {
                     selectedText = currency.unit
+                    onCurrencyChange?.invoke(currency.value.toString())
                 }) {
                     Text(text = currency.unit)
                 }

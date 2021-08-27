@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import com.enofeb.core.data.price.exchange.ExchangeRate
 import kotlin.math.exp
 
 @AndroidEntryPoint
@@ -54,18 +55,17 @@ fun PriceScreen(viewModel: PriceViewModel) {
 
     val state = viewModel.priceUiState.collectAsState().value
 
-    var currencyList: List<String>? = remember { mutableListOf() }
+    var currencyList: List<ExchangeRate>? = remember { mutableListOf() }
 
     when (state) {
         is PriceUiState.FetchExchanges -> {
-            currencyList = state.exchanges?.rates?.exchangeList?.map { it.unit }
+            currencyList = state.exchanges
         }
         is PriceUiState.LoadingState -> {
         }
         else -> {
         }
     }
-
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -129,7 +129,7 @@ fun BuyTextField() {
 }
 
 @Composable
-fun CurrencyDropDown(currencyList: List<String>?) {
+fun CurrencyDropDown(currencyList: List<ExchangeRate>?) {
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -153,9 +153,11 @@ fun CurrencyDropDown(currencyList: List<String>?) {
             readOnly = true
         )
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            currencyList?.forEach { label ->
-                DropdownMenuItem(onClick = { selectedText = label }) {
-                    Text(text = label)
+            currencyList?.forEach { currency ->
+                DropdownMenuItem(onClick = {
+                    selectedText = currency.unit
+                }) {
+                    Text(text = currency.unit)
                 }
             }
         }

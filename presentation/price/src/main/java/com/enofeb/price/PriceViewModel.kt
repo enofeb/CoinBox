@@ -27,7 +27,7 @@ class PriceViewModel @Inject constructor(
 
     private fun getExchanges() {
         priceRepository.getExchangeRates().onEach {
-            _priceUiState.value = PriceUiState.FetchExchanges(it)
+            _priceUiState.value = PriceUiState.FetchExchanges(it?.rates?.exchangeList)
         }.launchIn(viewModelScope)
     }
 

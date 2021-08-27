@@ -84,7 +84,7 @@ fun PriceScreen(viewModel: PriceViewModel) {
                     .weight(2f)
                     .padding(end = 15.dp)
             ) {
-                CurrencyDropDown(currencyList)
+                CurrencyDropDown(currencyList, isBitcoin = true)
             }
         }
         Row(Modifier.padding(top = 15.dp)) {
@@ -129,7 +129,7 @@ fun BuyTextField() {
 }
 
 @Composable
-fun CurrencyDropDown(currencyList: List<ExchangeRate>?) {
+fun CurrencyDropDown(currencyList: List<ExchangeRate>?, isBitcoin: Boolean = false) {
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -143,7 +143,7 @@ fun CurrencyDropDown(currencyList: List<ExchangeRate>?) {
 
     Column {
         OutlinedTextField(
-            value = selectedText,
+            value = if (isBitcoin) currencyList?.firstOrNull()?.unit ?: "" else selectedText,
             onValueChange = { selectedText = it },
             label = { Text("Name") },
             trailingIcon = {
@@ -152,7 +152,9 @@ fun CurrencyDropDown(currencyList: List<ExchangeRate>?) {
             },
             readOnly = true
         )
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        DropdownMenu(
+            expanded = if (isBitcoin) false else expanded,
+            onDismissRequest = { expanded = false }) {
             currencyList?.forEach { currency ->
                 DropdownMenuItem(onClick = {
                     selectedText = currency.unit

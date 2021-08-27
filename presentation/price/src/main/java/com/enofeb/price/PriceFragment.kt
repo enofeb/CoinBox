@@ -1,11 +1,13 @@
 package com.enofeb.price
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import com.enofeb.core.base.BaseFragment
@@ -21,6 +23,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.enofeb.core.data.price.exchange.ExchangeRate
@@ -55,6 +59,8 @@ fun PriceScreen(viewModel: PriceViewModel) {
 
     val state = viewModel.priceUiState.collectAsState().value
 
+    val sellPrice = viewModel.sellPriceState.collectAsState().value
+
     var currencyList: List<ExchangeRate>? = remember { mutableListOf() }
 
     when (state) {
@@ -77,7 +83,7 @@ fun PriceScreen(viewModel: PriceViewModel) {
                     .weight(4f)
                     .padding(start = 15.dp, end = 15.dp)
             ) {
-                SellTextField()
+                SellTextField(onPriceChange = { viewModel.onSellPriceChange(it.toDoubleOrNull()) })
             }
             Column(
                 modifier = Modifier
@@ -93,7 +99,7 @@ fun PriceScreen(viewModel: PriceViewModel) {
                     .weight(4f)
                     .padding(start = 15.dp, end = 15.dp)
             ) {
-                BuyTextField()
+                BuyTextField(sellPrice)
             }
             Column(
                 modifier = Modifier
@@ -107,23 +113,29 @@ fun PriceScreen(viewModel: PriceViewModel) {
 }
 
 @Composable
-fun SellTextField() {
+fun SellTextField(onPriceChange: (String) -> Unit) {
     var value by remember { mutableStateOf("") }
 
     OutlinedTextField(
         value = value,
-        onValueChange = { value = it },
-        label = { Text("Sell") }
+        onValueChange = {
+            value = it
+            onPriceChange.invoke(it)
+        },
+        label = { Text("Sell") },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+        ),
     )
 }
 
 @Composable
-fun BuyTextField() {
-    var value by remember { mutableStateOf("") }
+fun BuyTextField(price: Double?) {
 
     OutlinedTextField(
-        value = value,
-        onValueChange = { value = it },
+        value = price.toString(),
+        onValueChange = {},
+        enabled = false,
         label = { Text("Buy") }
     )
 }
@@ -164,11 +176,6 @@ fun CurrencyDropDown(currencyList: List<ExchangeRate>?, isBitcoin: Boolean = fal
             }
         }
     }
-
-}
-
-@Composable
-fun CurrencyDropDownItem(currencies: List<String>) {
 
 }
 

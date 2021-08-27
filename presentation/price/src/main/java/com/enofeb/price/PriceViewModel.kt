@@ -1,8 +1,11 @@
 package com.enofeb.price
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.enofeb.core.base.BaseViewModel
+import com.enofeb.core.di.DataModule_ProvideMarketServicesFactory
 import com.enofeb.core.domain.price.PriceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +23,14 @@ class PriceViewModel @Inject constructor(
         MutableStateFlow(PriceUiState.InitialState)
 
     val priceUiState: StateFlow<PriceUiState> = _priceUiState
+
+    private val _sellPriceState: MutableStateFlow<Double?> = MutableStateFlow(0.0)
+
+    val sellPriceState: StateFlow<Double?> = _sellPriceState
+
+    fun onSellPriceChange(price: Double?) {
+        _sellPriceState.value = price
+    }
 
     init {
         getExchanges()

@@ -6,7 +6,8 @@ data class ExchangeRateCollection(
     @SerializedName("btc") val bitcoin: ExchangeRate,
     @SerializedName("eth") val etherium: ExchangeRate,
     @SerializedName("xrp") val ripple: ExchangeRate,
+    @SerializedName("ltc") val lite: ExchangeRate,
 ) {
     val exchangeList: MutableList<ExchangeRate>
-        get() = mutableListOf(bitcoin, etherium, ripple)
+        get() = mutableListOf(bitcoin, etherium, ripple,lite)
 }

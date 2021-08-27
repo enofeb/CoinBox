@@ -45,41 +45,62 @@ class PriceFragment :
 
     @Composable
     override fun DrawScreen() {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row {
-                Column(
-                    modifier = Modifier
-                        .weight(4f)
-                        .padding(start = 15.dp, end = 15.dp)
-                ) {
-                    SellTextField()
-                }
-                Column(
-                    modifier = Modifier
-                        .weight(2f)
-                        .padding(end = 15.dp)
-                ) {
-                    CurrencyDropDown(viewModel)
-                }
+        PriceScreen(viewModel = viewModel)
+    }
+}
+
+@Composable
+fun PriceScreen(viewModel: PriceViewModel) {
+
+    val state = viewModel.priceUiState.collectAsState().value
+
+    var currencyList: List<String>? = remember { mutableListOf() }
+
+    when (state) {
+        is PriceUiState.FetchExchanges -> {
+            currencyList = state.exchanges?.rates?.exchangeList?.map { it.unit }
+        }
+        is PriceUiState.LoadingState -> {
+        }
+        else -> {
+        }
+    }
+
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row {
+            Column(
+                modifier = Modifier
+                    .weight(4f)
+                    .padding(start = 15.dp, end = 15.dp)
+            ) {
+                SellTextField()
             }
-            Row(Modifier.padding(top = 15.dp)) {
-                Column(
-                    modifier = Modifier
-                        .weight(4f)
-                        .padding(start = 15.dp, end = 15.dp)
-                ) {
-                    BuyTextField()
-                }
-                Column(
-                    modifier = Modifier
-                        .weight(2f)
-                        .padding(end = 15.dp)
-                ) {
-                    CurrencyDropDown(viewModel)
-                }
+            Column(
+                modifier = Modifier
+                    .weight(2f)
+                    .padding(end = 15.dp)
+            ) {
+                CurrencyDropDown(currencyList)
+            }
+        }
+        Row(Modifier.padding(top = 15.dp)) {
+            Column(
+                modifier = Modifier
+                    .weight(4f)
+                    .padding(start = 15.dp, end = 15.dp)
+            ) {
+                BuyTextField()
+            }
+            Column(
+                modifier = Modifier
+                    .weight(2f)
+                    .padding(end = 15.dp)
+            ) {
+                CurrencyDropDown(currencyList)
             }
         }
     }
@@ -108,11 +129,7 @@ fun BuyTextField() {
 }
 
 @Composable
-fun CurrencyDropDown(viewModel: PriceViewModel) {
-
-    val state = viewModel.priceUiState.collectAsState().value as? PriceUiState.FetchExchanges
-
-    val currencies = state?.exchanges?.rates?.exchangeList?.map { it.unit }
+fun CurrencyDropDown(currencyList: List<String>?) {
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -136,11 +153,9 @@ fun CurrencyDropDown(viewModel: PriceViewModel) {
             readOnly = true
         )
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            currencies?.forEach { label ->
-                label?.let {
-                    DropdownMenuItem(onClick = { selectedText = it }) {
-                        Text(text = it)
-                    }
+            currencyList?.forEach { label ->
+                DropdownMenuItem(onClick = { selectedText = label }) {
+                    Text(text = label)
                 }
             }
         }

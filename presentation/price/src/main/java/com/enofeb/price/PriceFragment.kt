@@ -60,8 +60,6 @@ fun PriceScreen(viewModel: PriceViewModel) {
 
     val state = viewModel.priceUiState.collectAsState().value
 
-    val sellPrice = viewModel.sellPriceState.collectAsState().value
-
     val buyPrice = viewModel.buyPriceState.collectAsState().value
 
     var currencyList: List<ExchangeRate>? = remember { mutableListOf() }
@@ -76,17 +74,34 @@ fun PriceScreen(viewModel: PriceViewModel) {
         }
     }
 
+    ConverterContent(
+        onPriceChange = { viewModel.onSellPriceChange(it.toDoubleOrNull()) },
+        currencyList = currencyList,
+        buyPrice = buyPrice,
+        onCurrencyChange = { viewModel.onBuyCurrency(it.toDoubleOrNull()) }
+    )
+
+}
+
+@Composable
+fun ConverterContent(
+    onPriceChange: (String) -> Unit,
+    currencyList: List<ExchangeRate>?,
+    buyPrice: Double?,
+    onCurrencyChange: ((String) -> Unit)? = null
+) {
+
     Column(
         verticalArrangement = Arrangement.Center
     ) {
-        PriceHeaderField()
+        PriceHeaderField(icon = R.drawable.ic_change, "BTC Converter")
         Row(Modifier.padding(top = 15.dp)) {
             Column(
                 modifier = Modifier
                     .weight(4f)
                     .padding(start = 15.dp, end = 15.dp)
             ) {
-                SellTextField(onPriceChange = { viewModel.onSellPriceChange(it.toDoubleOrNull()) })
+                SellTextField(onPriceChange = onPriceChange)
             }
             Column(
                 modifier = Modifier
@@ -111,7 +126,8 @@ fun PriceScreen(viewModel: PriceViewModel) {
             ) {
                 CurrencyDropDown(
                     currencyList,
-                    onCurrencyChange = { viewModel.onBuyCurrency(it.toDoubleOrNull()) })
+                    onCurrencyChange = onCurrencyChange
+                )
             }
         }
     }
@@ -190,11 +206,11 @@ fun CurrencyDropDown(
 }
 
 @Composable
-fun PriceHeaderField() {
+fun PriceHeaderField(icon: Int, text: String) {
     Row(Modifier.padding(start = 15.dp)) {
-        Icon(painter = painterResource(id = R.drawable.ic_change), contentDescription = null)
+        Icon(painter = painterResource(id = icon), contentDescription = null)
         Text(
-            text = "BTC Converter",
+            text = text,
             modifier = Modifier
                 .padding(start = 5.dp)
                 .align(Alignment.CenterVertically)

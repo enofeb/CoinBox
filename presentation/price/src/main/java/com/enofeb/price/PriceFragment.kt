@@ -23,6 +23,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -76,10 +77,10 @@ fun PriceScreen(viewModel: PriceViewModel) {
     }
 
     Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center
     ) {
-        Row {
+        PriceHeaderField()
+        Row(Modifier.padding(top = 15.dp)) {
             Column(
                 modifier = Modifier
                     .weight(4f)
@@ -188,16 +189,24 @@ fun CurrencyDropDown(
 
 }
 
+@Composable
+fun PriceHeaderField() {
+    Row(Modifier.padding(start = 15.dp)) {
+        Icon(painter = painterResource(id = R.drawable.ic_change), contentDescription = null)
+        Text(
+            text = "BTC Converter",
+            modifier = Modifier
+                .padding(start = 5.dp)
+                .align(Alignment.CenterVertically)
+        )
+    }
+}
+
 @Preview
 @Composable
 fun ItemPreview() {
-    var value by remember { mutableStateOf("") }
-
-    Row {
-        OutlinedTextField(
-            value = value,
-            onValueChange = { value = it },
-            label = { Text("Sell") }
-        )
+    Row(horizontalArrangement = Arrangement.Start) {
+        Icon(painter = painterResource(id = R.drawable.ic_change), contentDescription = null)
+        Text(text = "BTC Converter")
     }
 }

@@ -112,6 +112,11 @@ fun ShowProgress() {
     }
 }
 
+@Composable
+fun MarketOrderTabs() {
+    //Market order tabs will be here
+}
+
 @Preview
 @Composable
 fun ItemPreview() {

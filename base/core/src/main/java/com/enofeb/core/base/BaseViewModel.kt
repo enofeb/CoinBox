@@ -1,20 +1,18 @@
 package com.enofeb.core.base
 
 import androidx.lifecycle.ViewModel
-import com.enofeb.core.state.UiState
-import com.enofeb.core.state.intent.UiIntent
+import com.enofeb.core.state.ErrorState
+import com.enofeb.core.state.LoadingState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-abstract class BaseViewModel<UI : UiIntent, US : UiState> : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
-    abstract val initialState: US
+    protected val _loadingState = MutableStateFlow(LoadingState(false))
 
-    private val _uiState: MutableStateFlow<US> by lazy { MutableStateFlow(initialState) }
+    val loadingState: StateFlow<LoadingState> = _loadingState
 
-    val uiState: StateFlow<US> = _uiState
+    protected val _errorState = MutableStateFlow(ErrorState())
 
-    fun setState(state: US) {
-        _uiState.value = state
-    }
+    val errorState: StateFlow<ErrorState> = _errorState
 }

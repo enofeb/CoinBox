@@ -1,35 +1,41 @@
 package com.enofeb.dashboard.home
 
-import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.enofeb.core.base.BaseViewModel
 import com.enofeb.core.domain.market.MarketRepository
+import com.enofeb.core.state.ErrorState
+import com.enofeb.core.state.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val marketRepository: MarketRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
-    private val _homeUiState: MutableStateFlow<HomeUiState> =
-        MutableStateFlow(HomeUiState.LoadingState)
+    private val _homeUiState = MutableStateFlow(HomeState())
 
-    val homeUiState: StateFlow<HomeUiState> = _homeUiState
+    val homeUiState: StateFlow<HomeState> = _homeUiState
 
     init {
-        getMarket()
-    }
-
-    private fun getMarket() {
-        marketRepository.getCoinMarket().onEach {
-            _homeUiState.value = HomeUiState.ShowMarket(it)
-        }.launchIn(viewModelScope)
+        viewModelScope.launch {
+            combine(
+                marketRepository.getCoinMarket(),
+                marketRepository.getPopularCoins()
+            ) { coins, popularCoins ->
+                HomeState(coins)
+            }.onEach {
+                _homeUiState.value = it
+                _loadingState.value = LoadingState(false)
+            }.catch {
+                _errorState.value = ErrorState(it.message)
+            }.onStart {
+                _loadingState.value = LoadingState(true)
+            }.collect()
+        }
     }
 
 }

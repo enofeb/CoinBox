@@ -26,8 +26,7 @@ import com.enofeb.core.data.market.Coin
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment :
-    BaseFragment<HomeIntent, HomeUiState>() {
+class HomeFragment : BaseFragment() {
 
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -45,29 +44,54 @@ class HomeFragment :
 
     @Composable
     override fun DrawScreen() {
-        CoinList(viewModel)
+        CoinScreen(viewModel)
     }
 
 }
 
 
 @Composable
-fun CoinList(viewModel: HomeViewModel) {
-    when (val state = viewModel.homeUiState.collectAsState().value) {
-        is HomeUiState.LoadingState -> {
-            ShowProgress()
-        }
-        is HomeUiState.ShowMarket -> {
-            state.coins?.let { list ->
-                LazyColumn {
-                    items(
-                        items = list,
-                        itemContent = { CoinItem(coin = it) })
-                }
-            }
-        }
-        is HomeUiState.InitialState -> {
+fun CoinScreen(viewModel: HomeViewModel) {
 
+    val state = viewModel.homeUiState.collectAsState().value
+
+    val errorState = viewModel.errorState.collectAsState().value
+
+    val loadingState = viewModel.loadingState.collectAsState().value
+
+    if (loadingState.isLoading==true){
+        ShowProgress()
+    }
+
+    CoinList(coins = state.coins)
+
+
+//    when (val state = viewModel.homeUiState.collectAsState().value) {
+//        is HomeUiState.LoadingState -> {
+//            ShowProgress()
+//        }
+//        is HomeUiState.ShowMarket -> {
+//            state.coins?.let { list ->
+//                LazyColumn {
+//                    items(
+//                        items = list,
+//                        itemContent = { CoinItem(coin = it) })
+//                }
+//            }
+//        }
+//        is HomeUiState.InitialState -> {
+//
+//        }
+//    }
+}
+
+@Composable
+fun CoinList(coins: List<Coin>?) {
+    coins?.let { list ->
+        LazyColumn {
+            items(
+                items = list,
+                itemContent = { CoinItem(coin = it) })
         }
     }
 }

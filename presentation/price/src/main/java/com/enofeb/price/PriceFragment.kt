@@ -33,7 +33,7 @@ import kotlin.math.exp
 
 @AndroidEntryPoint
 class PriceFragment :
-    BaseFragment<PriceIntent, PriceUiState>() {
+    BaseFragment() {
 
     private val viewModel by viewModels<PriceViewModel>()
 

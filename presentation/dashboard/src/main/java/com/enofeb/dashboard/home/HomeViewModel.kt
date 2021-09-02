@@ -27,7 +27,18 @@ class HomeViewModel @Inject constructor(
                 marketRepository.getCoinMarket(),
                 marketRepository.getPopularCoins()
             ) { hotCoins, popularCoins ->
-                HomeState(hotCoins)
+                HomeState(hotCoins, popularCoins?.coins?.map {
+                    it.item.let { popularCoin ->
+                        Coin(
+                            id = popularCoin.id,
+                            symbol = popularCoin.symbol,
+                            name = popularCoin.name,
+                            imageUrl = popularCoin.imageUrl,
+                            currentPrice = popularCoin.priceBtc
+                        )
+                    }
+                }
+                )
             }.onEach {
                 _homeUiState.value = it
                 _loadingState.value = LoadingState(false)

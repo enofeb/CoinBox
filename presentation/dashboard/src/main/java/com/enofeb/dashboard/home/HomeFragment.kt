@@ -22,6 +22,7 @@ import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
 import com.enofeb.core.data.market.order.HomeOrderType
+import com.enofeb.core.extensions.roundOffDecimal
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +57,6 @@ class HomeFragment : BaseFragment() {
 fun CoinScreen(viewModel: HomeViewModel) {
 
 
-
     val state = viewModel.homeUiState.collectAsState().value
 
     val errorState = viewModel.errorState.collectAsState().value
@@ -79,7 +79,7 @@ fun CoinScreen(viewModel: HomeViewModel) {
 
     Column {
         MarketOrderTabs(listOrderTypes, pagerState)
-        MarketOrderTabsContent(listOrderTypes, pagerState, state.hotCoins)
+        MarketOrderTabsContent(listOrderTypes, pagerState, state.hotCoins, state.popularCoins)
     }
 
 }
@@ -87,10 +87,12 @@ fun CoinScreen(viewModel: HomeViewModel) {
 @Composable
 fun CoinList(coins: List<Coin>?) {
     coins?.let { list ->
-        LazyColumn {
-            items(
-                items = list,
-                itemContent = { CoinItem(coin = it) })
+        Column(Modifier.fillMaxSize()) {
+            LazyColumn() {
+                items(
+                    items = list,
+                    itemContent = { CoinItem(coin = it) })
+            }
         }
     }
 }
@@ -119,7 +121,7 @@ fun CoinItem(coin: Coin) {
                     modifier = Modifier.padding(start = 10.dp)
                 )
             }
-            Text(text = coin.currentPrice.toString(), color = Color.White)
+            Text(text = coin.currentPrice.roundOffDecimal(), color = Color.White)
         }
     }
 }
@@ -159,11 +161,19 @@ fun MarketOrderTabs(pages: List<HomeOrderType>, pagerState: PagerState) {
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @Composable
-fun MarketOrderTabsContent(pages: List<HomeOrderType>, pagerState: PagerState, coins: List<Coin>?) {
+fun MarketOrderTabsContent(
+    pages: List<HomeOrderType>,
+    pagerState: PagerState,
+    hotCoins: List<Coin>?,
+    popularCoins: List<Coin>?
+) {
     HorizontalPager(state = pagerState) { page ->
         when (page) {
             HomeOrderType.HOT.ordinal -> {
-                CoinList(coins)
+                CoinList(hotCoins)
+            }
+            HomeOrderType.POPULAR.ordinal -> {
+                CoinList(coins = popularCoins)
             }
             else -> {
                 ShowProgress()

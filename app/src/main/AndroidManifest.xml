@@ -8,12 +8,12 @@
     <dist:module dist:instant="true" />
 
     <application
+        android:name=".CoinBoxApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".CoinBoxApp"
         android:theme="@style/Theme.CoinBox">
         <activity android:name=".splash.SplashActivity">
             <intent-filter>
@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".home.HomeActivity"/>
+        <activity
+            android:name=".home.HomeActivity"
+            android:theme="@style/NoActionBar" />
     </application>
 
 </manifest>

@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
+import com.enofeb.core.data.market.order.HomeOrderItem
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,13 +61,23 @@ fun CoinScreen(viewModel: HomeViewModel) {
 
     val loadingState = viewModel.loadingState.collectAsState().value
 
+    val listOrderItems: List<HomeOrderItem> = listOf(
+        HomeOrderItem.Hot,
+        HomeOrderItem.Gainers,
+        HomeOrderItem.Losers,
+        HomeOrderItem.LastDayHighers
+    )
+
+
+    val pagerState = rememberPagerState(pageCount = listOrderItems.size)
+
     if (loadingState.isLoading == true) {
         ShowProgress()
     }
 
     Column {
-        MarketOrderTabs()
-        CoinList(coins = state.coins)
+        MarketOrderTabs(listOrderItems, pagerState)
+        MarketOrderTabsContent(listOrderItems, pagerState, state.coins)
     }
 
 }
@@ -125,10 +136,7 @@ fun ShowProgress() {
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @Composable
-fun MarketOrderTabs() {
-    val pages = listOf("Hot", "Gainers", "Losers", "24h")
-
-    val pagerState = rememberPagerState(pageCount = pages.size)
+fun MarketOrderTabs(pages: List<HomeOrderItem>, pagerState: PagerState) {
 
     TabRow(selectedTabIndex = pagerState.currentPage,
         indicator = { tabPositions ->
@@ -136,13 +144,22 @@ fun MarketOrderTabs() {
                 modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
             )
         }) {
-        pages.forEachIndexed { index, title ->
+        pages.forEachIndexed { index, item ->
             Tab(
-                text = { Text(title) },
+                text = { Text(item.title) },
                 selected = pagerState.currentPage == index,
                 onClick = {}
             )
         }
+    }
+}
+
+@ExperimentalPagerApi
+@ExperimentalMaterialApi
+@Composable
+fun MarketOrderTabsContent(pages: List<HomeOrderItem>, pagerState: PagerState, coins: List<Coin>?) {
+    HorizontalPager(state = pagerState) { page ->
+        CoinList(coins)
     }
 }
 

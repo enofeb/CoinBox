@@ -14,7 +14,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
@@ -23,6 +26,7 @@ import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
 import com.enofeb.core.data.market.order.HomeOrderType
 import com.enofeb.core.extensions.roundOffDecimal
+import com.enofeb.dashboard.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,9 +81,11 @@ fun CoinScreen(viewModel: HomeViewModel) {
         ShowProgress()
     }
 
-    Column {
-        MarketOrderTabs(listOrderTypes, pagerState)
-        MarketOrderTabsContent(listOrderTypes, pagerState, state.hotCoins, state.popularCoins)
+    Scaffold(topBar = { HomeAppBar() }) {
+        Column {
+            MarketOrderTabs(listOrderTypes, pagerState)
+            MarketOrderTabsContent(listOrderTypes, pagerState, state.hotCoins, state.popularCoins)
+        }
     }
 
 }
@@ -88,7 +94,7 @@ fun CoinScreen(viewModel: HomeViewModel) {
 fun CoinList(coins: List<Coin>?) {
     coins?.let { list ->
         Column(Modifier.fillMaxSize()) {
-            LazyColumn() {
+            LazyColumn {
                 items(
                     items = list,
                     itemContent = { CoinItem(coin = it) })
@@ -180,6 +186,23 @@ fun MarketOrderTabsContent(
             }
         }
     }
+}
+
+@Composable
+fun HomeAppBar() {
+    TopAppBar(modifier = Modifier.fillMaxWidth()) {
+        Box(Modifier.height(32.dp)) {
+            Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(R.drawable.ic_z_cash),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth(),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+            }
+        }
+    }
+
 }
 
 @Preview

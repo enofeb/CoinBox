@@ -64,25 +64,6 @@ fun CoinScreen(viewModel: HomeViewModel) {
     }
 
     CoinList(coins = state.coins)
-
-
-//    when (val state = viewModel.homeUiState.collectAsState().value) {
-//        is HomeUiState.LoadingState -> {
-//            ShowProgress()
-//        }
-//        is HomeUiState.ShowMarket -> {
-//            state.coins?.let { list ->
-//                LazyColumn {
-//                    items(
-//                        items = list,
-//                        itemContent = { CoinItem(coin = it) })
-//                }
-//            }
-//        }
-//        is HomeUiState.InitialState -> {
-//
-//        }
-//    }
 }
 
 @Composable

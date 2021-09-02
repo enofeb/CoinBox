@@ -48,6 +48,10 @@ object Libraries {
     const val navigationComponentDynamic =
         "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}"
     const val coil = "io.coil-kt:coil-compose:${Versions.coilVersion}"
+    const val composeInsets =
+        "com.google.accompanist:accompanist-insets:${Versions.accompanistVersion}"
+    const val composePager =
+        "com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}"
 }
 
 object TestLibraries {

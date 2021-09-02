@@ -26,18 +26,15 @@ class HomeViewModel @Inject constructor(
             combine(
                 marketRepository.getCoinMarket(),
                 marketRepository.getPopularCoins()
-            ) { hotCoins, popularCoins ->
-                HomeState(hotCoins, popularCoins?.coins?.map {
-                    it.item.let { popularCoin ->
-                        Coin(
-                            id = popularCoin.id,
-                            symbol = popularCoin.symbol,
-                            name = popularCoin.name,
-                            imageUrl = popularCoin.imageUrl,
-                            currentPrice = popularCoin.priceBtc
-                        )
-                    }
-                }
+            ) { hotCoins, _ ->
+                val gainerCoins = hotCoins?.filter { it.changePercentage > 0 }
+                val loserCoins = hotCoins?.filter { it.changePercentage < 0 }
+                val todayHigh = hotCoins?.sortedBy { it.todayMaxPrice }
+                HomeState(
+                    hotCoins = hotCoins,
+                    gainCoins = gainerCoins,
+                    loserCoins = loserCoins,
+                    todayHighCoins = todayHigh
                 )
             }.onEach {
                 _homeUiState.value = it

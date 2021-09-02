@@ -32,7 +32,6 @@ import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
 import com.google.accompanist.pager.*
 
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
@@ -54,12 +53,10 @@ class HomeFragment : BaseFragment() {
 
 }
 
-
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun CoinScreen(viewModel: HomeViewModel) {
-
 
     val state = viewModel.homeUiState.collectAsState().value
 
@@ -71,9 +68,8 @@ fun CoinScreen(viewModel: HomeViewModel) {
         HomeOrderType.HOT,
         HomeOrderType.GAINER,
         HomeOrderType.LOSERS,
-        HomeOrderType.POPULAR
+        HomeOrderType.TODAYHIGH
     )
-
 
     val pagerState = rememberPagerState(pageCount = listOrderTypes.size)
 
@@ -84,7 +80,13 @@ fun CoinScreen(viewModel: HomeViewModel) {
     Scaffold(topBar = { HomeAppBar() }) {
         Column {
             MarketOrderTabs(listOrderTypes, pagerState)
-            MarketOrderTabsContent(listOrderTypes, pagerState, state.hotCoins, state.popularCoins)
+            MarketOrderTabsContent(
+                pagerState,
+                state.hotCoins,
+                state.gainCoins,
+                state.loserCoins,
+                state.todayHighCoins
+            )
         }
     }
 
@@ -127,7 +129,7 @@ fun CoinItem(coin: Coin) {
                     modifier = Modifier.padding(start = 10.dp)
                 )
             }
-            Text(text = coin.currentPrice.roundOffDecimal(), color = Color.White)
+            Text(text = coin.currentPrice.toString(), color = Color.White)
         }
     }
 }
@@ -168,18 +170,25 @@ fun MarketOrderTabs(pages: List<HomeOrderType>, pagerState: PagerState) {
 @ExperimentalMaterialApi
 @Composable
 fun MarketOrderTabsContent(
-    pages: List<HomeOrderType>,
     pagerState: PagerState,
     hotCoins: List<Coin>?,
-    popularCoins: List<Coin>?
+    gainerCoins: List<Coin>?,
+    loserCoins: List<Coin>?,
+    todayHighCoins: List<Coin>?,
 ) {
     HorizontalPager(state = pagerState) { page ->
         when (page) {
             HomeOrderType.HOT.ordinal -> {
                 CoinList(hotCoins)
             }
-            HomeOrderType.POPULAR.ordinal -> {
-                CoinList(coins = popularCoins)
+            HomeOrderType.GAINER.ordinal -> {
+                CoinList(gainerCoins)
+            }
+            HomeOrderType.LOSERS.ordinal -> {
+                CoinList(loserCoins)
+            }
+            HomeOrderType.TODAYHIGH.ordinal -> {
+                CoinList(todayHighCoins)
             }
             else -> {
                 ShowProgress()

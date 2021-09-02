@@ -62,21 +62,9 @@ fun PriceScreen(viewModel: PriceViewModel) {
 
     val buyPrice = viewModel.buyPriceState.collectAsState().value
 
-    var currencyList: List<ExchangeRate>? = mutableListOf()
-
-    when (state) {
-        is PriceUiState.FetchExchanges -> {
-            currencyList = state.exchanges
-        }
-        is PriceUiState.LoadingState -> {
-        }
-        else -> {
-        }
-    }
-
     ConverterContent(
         onPriceChange = { viewModel.onSellPriceChange(it.toDoubleOrNull()) },
-        currencyList = currencyList,
+        currencyList = state.exchanges,
         buyPrice = buyPrice,
         onCurrencyChange = { viewModel.onBuyCurrency(it.toDoubleOrNull()) }
     )

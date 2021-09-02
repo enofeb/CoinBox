@@ -14,10 +14,9 @@ class PriceViewModel @Inject constructor(
     private val priceRepository: PriceRepository
 ) : ViewModel() {
 
-    private val _priceUiState: MutableStateFlow<PriceUiState> =
-        MutableStateFlow(PriceUiState.InitialState)
+    private val _priceUiState = MutableStateFlow(PriceState())
 
-    val priceUiState: StateFlow<PriceUiState> = _priceUiState
+    val priceUiState: StateFlow<PriceState> = _priceUiState
 
     private val _sellPriceState: MutableStateFlow<Double?> = MutableStateFlow(0.0)
 
@@ -49,7 +48,7 @@ class PriceViewModel @Inject constructor(
 
     private fun getExchanges() {
         priceRepository.getExchangeRates().onEach {
-            _priceUiState.value = PriceUiState.FetchExchanges(it?.rates?.exchangeList)
+            _priceUiState.value = PriceState(it?.rates?.exchangeList)
         }.launchIn(viewModelScope)
     }
 

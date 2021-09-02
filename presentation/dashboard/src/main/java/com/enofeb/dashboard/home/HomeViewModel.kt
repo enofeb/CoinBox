@@ -3,6 +3,7 @@ package com.enofeb.dashboard.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.enofeb.core.base.BaseViewModel
+import com.enofeb.core.data.market.Coin
 import com.enofeb.core.domain.market.MarketRepository
 import com.enofeb.core.state.ErrorState
 import com.enofeb.core.state.LoadingState
@@ -25,8 +26,8 @@ class HomeViewModel @Inject constructor(
             combine(
                 marketRepository.getCoinMarket(),
                 marketRepository.getPopularCoins()
-            ) { coins, popularCoins ->
-                HomeState(coins)
+            ) { hotCoins, popularCoins ->
+                HomeState(hotCoins)
             }.onEach {
                 _homeUiState.value = it
                 _loadingState.value = LoadingState(false)

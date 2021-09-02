@@ -79,7 +79,7 @@ fun CoinScreen(viewModel: HomeViewModel) {
 
     Column {
         MarketOrderTabs(listOrderTypes, pagerState)
-        MarketOrderTabsContent(listOrderTypes, pagerState, state.coins)
+        MarketOrderTabsContent(listOrderTypes, pagerState, state.hotCoins)
     }
 
 }

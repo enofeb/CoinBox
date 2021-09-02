@@ -32,8 +32,7 @@ import com.enofeb.core.data.price.exchange.ExchangeRate
 import kotlin.math.exp
 
 @AndroidEntryPoint
-class PriceFragment :
-    BaseFragment() {
+class PriceFragment : BaseFragment() {
 
     private val viewModel by viewModels<PriceViewModel>()
 
@@ -44,14 +43,9 @@ class PriceFragment :
     ): View = ComposeView(requireContext()).apply {
         setContent {
             ComposeMagic {
-                DrawScreen()
+                PriceScreen(viewModel = viewModel)
             }
         }
-    }
-
-    @Composable
-    override fun DrawScreen() {
-        PriceScreen(viewModel = viewModel)
     }
 }
 

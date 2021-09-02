@@ -61,4 +61,5 @@ dependencies {
     implementation Libraries.coil
     implementation Libraries.composeInsets
     implementation Libraries.composePager
+    implementation Libraries.composePagerIndicator
 }

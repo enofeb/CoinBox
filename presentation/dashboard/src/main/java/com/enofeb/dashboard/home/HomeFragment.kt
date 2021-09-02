@@ -8,9 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -23,13 +21,19 @@ import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
+import com.google.accompanist.pager.*
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
     private val viewModel by viewModels<HomeViewModel>()
 
+    @ExperimentalMaterialApi
+    @ExperimentalPagerApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,19 +41,16 @@ class HomeFragment : BaseFragment() {
     ): View = ComposeView(requireContext()).apply {
         setContent {
             ComposeMagic {
-                DrawScreen()
+                CoinScreen(viewModel)
             }
         }
-    }
-
-    @Composable
-    override fun DrawScreen() {
-        CoinScreen(viewModel)
     }
 
 }
 
 
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
 @Composable
 fun CoinScreen(viewModel: HomeViewModel) {
 
@@ -59,11 +60,15 @@ fun CoinScreen(viewModel: HomeViewModel) {
 
     val loadingState = viewModel.loadingState.collectAsState().value
 
-    if (loadingState.isLoading==true){
+    if (loadingState.isLoading == true) {
         ShowProgress()
     }
 
-    CoinList(coins = state.coins)
+    Column {
+        MarketOrderTabs()
+        CoinList(coins = state.coins)
+    }
+
 }
 
 @Composable
@@ -117,9 +122,28 @@ fun ShowProgress() {
     }
 }
 
+@ExperimentalPagerApi
+@ExperimentalMaterialApi
 @Composable
 fun MarketOrderTabs() {
-    //Market order tabs will be here
+    val pages = listOf("Hot", "Gainers", "Losers", "24h")
+
+    val pagerState = rememberPagerState(pageCount = pages.size)
+
+    TabRow(selectedTabIndex = pagerState.currentPage,
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
+            )
+        }) {
+        pages.forEachIndexed { index, title ->
+            Tab(
+                text = { Text(title) },
+                selected = pagerState.currentPage == index,
+                onClick = {}
+            )
+        }
+    }
 }
 
 @Preview

@@ -17,7 +17,4 @@ abstract class BaseFragment: Fragment() {
         }
     }
 
-    @Composable
-    abstract fun DrawScreen()
-
 }

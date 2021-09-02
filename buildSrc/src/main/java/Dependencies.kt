@@ -52,6 +52,8 @@ object Libraries {
         "com.google.accompanist:accompanist-insets:${Versions.accompanistVersion}"
     const val composePager =
         "com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}"
+    const val composePagerIndicator =
+        "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanistVersion}"
 }
 
 object TestLibraries {

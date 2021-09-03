@@ -10,4 +10,5 @@ data class Coin(
     @SerializedName("current_price") val currentPrice: Double,
     @SerializedName("price_change_percentage_24h") val changePercentage: Double,
     @SerializedName("high_24h") val todayMaxPrice: Double,
+    @SerializedName("total_volume") val volume: Long,
 )

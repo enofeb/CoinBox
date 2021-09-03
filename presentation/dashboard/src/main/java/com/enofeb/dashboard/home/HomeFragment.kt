@@ -17,14 +17,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
 import com.enofeb.core.data.market.order.HomeOrderType
+import com.enofeb.core.extensions.addVolPrefix
+import com.enofeb.core.extensions.formatNumber
 import com.enofeb.core.extensions.roundOffDecimal
 import com.enofeb.dashboard.R
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -114,8 +120,12 @@ fun CoinItem(coin: Coin) {
             .padding(15.dp), elevation = 10.dp,
         backgroundColor = Color.Black
     ) {
-        Row(modifier = Modifier.padding(15.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            Row {
+        Row(
+            modifier = Modifier.padding(15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = rememberImagePainter(coin.imageUrl),
                     contentDescription = null,
@@ -123,13 +133,20 @@ fun CoinItem(coin: Coin) {
                         .size(15.dp, 15.dp)
                         .align(Alignment.CenterVertically)
                 )
-                Text(
-                    text = coin.name,
-                    color = Color.White,
-                    modifier = Modifier.padding(start = 10.dp)
-                )
+                Column(Modifier.padding(start = 5.dp)) {
+                    Text(
+                        text = coin.symbol.uppercase(),
+                        color = Color.White
+                    )
+                    Text(
+                        text = coin.volume.formatNumber().addVolPrefix(),
+                        color = Color.LightGray,
+                        fontSize = 10.sp
+                    )
+                }
             }
             Text(text = coin.currentPrice.toString(), color = Color.White)
+            Text(text = coin.changePercentage.toString(), color = Color.White)
         }
     }
 }
@@ -224,15 +241,23 @@ fun ItemPreview() {
             .padding(15.dp), elevation = 10.dp,
         backgroundColor = Color.Black
     ) {
-        Row(modifier = Modifier.padding(15.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            Row {
+        Row(
+            modifier = Modifier.padding(15.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = rememberImagePainter("https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880"),
                     contentDescription = null,
                     Modifier.size(10.dp, 10.dp)
                 )
-                Text(text = "Eth", color = Color.White)
+                Column {
+                    Text(text = "ETH", color = Color.White)
+                    Text(text = "Vol 32M", color = Color.LightGray, fontSize = 10.sp)
+                }
             }
+            Text(text = "3224.5", color = Color.White)
             Text(text = "3224.5", color = Color.White)
         }
     }

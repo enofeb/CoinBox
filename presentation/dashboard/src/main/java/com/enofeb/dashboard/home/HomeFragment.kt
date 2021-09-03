@@ -145,8 +145,15 @@ fun CoinItem(coin: Coin) {
                     )
                 }
             }
-            Text(text = coin.currentPrice.toString(), color = Color.White)
-            Text(text = coin.changePercentage.toString(), color = Color.White)
+            Text(
+                text = coin.currentPrice.toString(),
+                color = Color.White, fontSize = 14.sp
+            )
+            Text(
+                text = coin.changePercentage.roundOffDecimal(),
+                color = Color.White,
+                fontSize = 14.sp
+            )
         }
     }
 }

@@ -29,6 +29,7 @@ import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
 import com.enofeb.core.data.market.order.HomeOrderType
+import com.enofeb.core.extensions.addPercentage
 import com.enofeb.core.extensions.addVolPrefix
 import com.enofeb.core.extensions.formatNumber
 import com.enofeb.core.extensions.roundOffDecimal
@@ -149,10 +150,13 @@ fun CoinItem(coin: Coin) {
                 text = coin.currentPrice.toString(),
                 color = Color.White, fontSize = 14.sp
             )
-            Text(
-                text = coin.changePercentage.roundOffDecimal(),
-                color = Color.White,
-                fontSize = 14.sp
+            PercentageCard(
+                coin.changePercentage.roundOffDecimal().addPercentage(),
+                if (coin.changePercentage > 0) {
+                    Color.Green
+                } else {
+                    Color.Red
+                }
             )
         }
     }
@@ -238,6 +242,15 @@ fun HomeAppBar() {
 
 }
 
+@Composable
+fun PercentageCard(value: String, color: Color) {
+    Card(
+        backgroundColor = color
+    ) {
+        Text(text = value, color = Color.White, modifier = Modifier.padding(5.dp), fontSize = 14.sp)
+    }
+}
+
 @Preview
 @Composable
 fun ItemPreview() {
@@ -265,7 +278,16 @@ fun ItemPreview() {
                 }
             }
             Text(text = "3224.5", color = Color.White)
-            Text(text = "3224.5", color = Color.White)
+            Card(
+                backgroundColor = Color.Green
+            ) {
+                Text(
+                    text = "+%1.20",
+                    color = Color.White,
+                    modifier = Modifier.padding(5.dp),
+                    fontSize = 14.sp
+                )
+            }
         }
     }
 }

@@ -67,7 +67,7 @@ class HomeFragment : BaseFragment() {
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun CoinScreen(viewModel: HomeViewModel, onItemClick: () -> Unit) {
+fun CoinScreen(viewModel: HomeViewModel, onItemClick: (String) -> Unit) {
 
     val state = viewModel.homeUiState.collectAsState().value
 
@@ -105,7 +105,7 @@ fun CoinScreen(viewModel: HomeViewModel, onItemClick: () -> Unit) {
 }
 
 @Composable
-fun CoinList(coins: List<Coin>?, onItemClick: () -> Unit) {
+fun CoinList(coins: List<Coin>?, onItemClick: (String) -> Unit) {
     coins?.let { list ->
         Column(Modifier.fillMaxSize()) {
             LazyColumn {
@@ -119,14 +119,14 @@ fun CoinList(coins: List<Coin>?, onItemClick: () -> Unit) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CoinItem(coin: Coin, onItemClick: () -> Unit) {
+fun CoinItem(coin: Coin, onItemClick: (String) -> Unit) {
     Card(
         modifier =
         Modifier
             .fillMaxWidth()
             .padding(15.dp), elevation = 10.dp,
         backgroundColor = Color.Black,
-        onClick = { onItemClick.invoke() }
+        onClick = { onItemClick.invoke(coin.id) }
     ) {
         Row(
             modifier = Modifier.padding(15.dp),
@@ -210,7 +210,7 @@ fun MarketOrderTabsContent(
     gainerCoins: List<Coin>?,
     loserCoins: List<Coin>?,
     todayHighCoins: List<Coin>?,
-    onItemClick: () -> Unit
+    onItemClick: (String) -> Unit
 ) {
     HorizontalPager(state = pagerState) { page ->
         when (page) {

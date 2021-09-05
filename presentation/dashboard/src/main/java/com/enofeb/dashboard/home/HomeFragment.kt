@@ -1,6 +1,7 @@
 package com.enofeb.dashboard.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
 import com.enofeb.core.data.market.Coin
@@ -53,7 +55,9 @@ class HomeFragment : BaseFragment() {
     ): View = ComposeView(requireContext()).apply {
         setContent {
             ComposeMagic {
-                CoinScreen(viewModel)
+                CoinScreen(viewModel) {
+                    findNavController().navigate(R.id.action_home_to_coinDetail)
+                }
             }
         }
     }
@@ -63,7 +67,7 @@ class HomeFragment : BaseFragment() {
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun CoinScreen(viewModel: HomeViewModel) {
+fun CoinScreen(viewModel: HomeViewModel, onItemClick: () -> Unit) {
 
     val state = viewModel.homeUiState.collectAsState().value
 
@@ -92,7 +96,8 @@ fun CoinScreen(viewModel: HomeViewModel) {
                 state.hotCoins,
                 state.gainCoins,
                 state.loserCoins,
-                state.todayHighCoins
+                state.todayHighCoins,
+                onItemClick
             )
         }
     }
@@ -100,26 +105,28 @@ fun CoinScreen(viewModel: HomeViewModel) {
 }
 
 @Composable
-fun CoinList(coins: List<Coin>?) {
+fun CoinList(coins: List<Coin>?, onItemClick: () -> Unit) {
     coins?.let { list ->
         Column(Modifier.fillMaxSize()) {
             LazyColumn {
                 items(
                     items = list,
-                    itemContent = { CoinItem(coin = it) })
+                    itemContent = { CoinItem(coin = it, onItemClick) })
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CoinItem(coin: Coin) {
+fun CoinItem(coin: Coin, onItemClick: () -> Unit) {
     Card(
         modifier =
         Modifier
             .fillMaxWidth()
             .padding(15.dp), elevation = 10.dp,
-        backgroundColor = Color.Black
+        backgroundColor = Color.Black,
+        onClick = { onItemClick.invoke() }
     ) {
         Row(
             modifier = Modifier.padding(15.dp),
@@ -203,20 +210,21 @@ fun MarketOrderTabsContent(
     gainerCoins: List<Coin>?,
     loserCoins: List<Coin>?,
     todayHighCoins: List<Coin>?,
+    onItemClick: () -> Unit
 ) {
     HorizontalPager(state = pagerState) { page ->
         when (page) {
             HomeOrderType.HOT.ordinal -> {
-                CoinList(hotCoins)
+                CoinList(hotCoins, onItemClick)
             }
             HomeOrderType.GAINER.ordinal -> {
-                CoinList(gainerCoins)
+                CoinList(gainerCoins, onItemClick)
             }
             HomeOrderType.LOSERS.ordinal -> {
-                CoinList(loserCoins)
+                CoinList(loserCoins, onItemClick)
             }
             HomeOrderType.TODAYHIGH.ordinal -> {
-                CoinList(todayHighCoins)
+                CoinList(todayHighCoins, onItemClick)
             }
             else -> {
                 ShowProgress()

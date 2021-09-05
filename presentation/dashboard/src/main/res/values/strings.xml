@@ -2,4 +2,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_price">Price</string>
+    <string name="title_coin_detail">Coin Detail</string>
+
 </resources>

@@ -8,6 +8,15 @@
         android:id="@+id/home"
         android:name="com.enofeb.dashboard.home.HomeFragment"
         android:label="@string/title_home">
+        <action
+            android:id="@+id/action_home_to_coinDetail"
+            app:destination="@id/coinDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/coinDetail"
+        android:name="com.enofeb.dashboard.home.detail.CoinDetailFragment"
+        android:label="@string/title_coin_detail">
         <!-- Navigations will be come here!-->
     </fragment>
 

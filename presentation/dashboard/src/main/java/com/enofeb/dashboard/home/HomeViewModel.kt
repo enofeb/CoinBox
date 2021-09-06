@@ -1,9 +1,7 @@
 package com.enofeb.dashboard.home
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.enofeb.core.base.BaseViewModel
-import com.enofeb.core.data.market.Coin
 import com.enofeb.core.domain.market.MarketRepository
 import com.enofeb.core.state.ErrorState
 import com.enofeb.core.state.LoadingState

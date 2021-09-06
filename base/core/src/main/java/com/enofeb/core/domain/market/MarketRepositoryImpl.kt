@@ -1,6 +1,6 @@
 package com.enofeb.core.domain.market
 
-import com.enofeb.core.data.market.Coin
+import com.enofeb.core.data.market.coin.Coin
 import com.enofeb.core.data.market.popular.PopularCoinResponse
 import com.enofeb.core.extensions.knock
 import com.enofeb.core.service.market.MarketService

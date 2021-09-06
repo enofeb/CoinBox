@@ -1,6 +1,6 @@
 package com.enofeb.dashboard.home
 
-import com.enofeb.core.data.market.Coin
+import com.enofeb.core.data.market.coin.Coin
 
 data class HomeState(
     val hotCoins: List<Coin>? = emptyList(),

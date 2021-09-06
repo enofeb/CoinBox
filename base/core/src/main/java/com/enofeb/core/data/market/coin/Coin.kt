@@ -1,4 +1,4 @@
-package com.enofeb.core.data.market
+package com.enofeb.core.data.market.coin
 
 import com.google.gson.annotations.SerializedName
 

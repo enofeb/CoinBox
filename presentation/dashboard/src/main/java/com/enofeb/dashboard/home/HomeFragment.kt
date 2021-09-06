@@ -1,7 +1,6 @@
 package com.enofeb.dashboard.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,7 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import coil.compose.rememberImagePainter
 import com.enofeb.core.base.BaseFragment
-import com.enofeb.core.data.market.Coin
+import com.enofeb.core.data.market.coin.Coin
 import com.enofeb.core.data.market.order.HomeOrderType
 import com.enofeb.core.extensions.addPercentage
 import com.enofeb.core.extensions.addVolPrefix

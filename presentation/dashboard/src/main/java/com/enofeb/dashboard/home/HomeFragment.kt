@@ -1,6 +1,7 @@
 package com.enofeb.dashboard.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,10 +87,6 @@ fun CoinScreen(viewModel: HomeViewModel, onItemClick: (String) -> Unit) {
 
     val pagerState = rememberPagerState(pageCount = listOrderTypes.size)
 
-    if (loadingState.isLoading == true) {
-        ShowProgress()
-    }
-
     Scaffold(topBar = { HomeAppBar() }) {
         Column {
             MarketOrderTabs(listOrderTypes, pagerState)
@@ -99,7 +96,8 @@ fun CoinScreen(viewModel: HomeViewModel, onItemClick: (String) -> Unit) {
                 state.gainCoins,
                 state.loserCoins,
                 state.todayHighCoins,
-                onItemClick
+                onItemClick,
+                loadingState.isLoading
             )
         }
     }
@@ -212,8 +210,14 @@ fun MarketOrderTabsContent(
     gainerCoins: List<Coin>?,
     loserCoins: List<Coin>?,
     todayHighCoins: List<Coin>?,
-    onItemClick: (String) -> Unit
+    onItemClick: (String) -> Unit,
+    isLoading: Boolean?
 ) {
+
+    if (isLoading==true){
+        ShowProgress()
+    }
+
     HorizontalPager(state = pagerState) { page ->
         when (page) {
             HomeOrderType.HOT.ordinal -> {

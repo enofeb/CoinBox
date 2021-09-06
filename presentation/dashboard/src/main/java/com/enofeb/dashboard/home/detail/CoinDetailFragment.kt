@@ -30,6 +30,7 @@ import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.dashboard.R
 import com.enofeb.dashboard.home.HomeFragment.Companion.COIN_ID
+import com.enofeb.dashboard.home.ShowProgress
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlin.math.min
@@ -81,7 +82,13 @@ fun CoinDetailScreen(viewModel: CoinDetailViewModel) {
 
     val state = viewModel.coinDetailState.collectAsState().value
 
-    state.coinDetail?.let { coin->
+    val loadingState = viewModel.loadingState.collectAsState().value
+
+    if (loadingState.isLoading == true) {
+        ShowProgress()
+    }
+
+    state.coinDetail?.let { coin ->
         Box(
             Modifier
                 .fillMaxSize()

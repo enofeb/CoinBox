@@ -7,5 +7,5 @@ data class CoinDetail(
     @SerializedName("symbol") val symbol: String,
     @SerializedName("name") val name: String,
     @SerializedName("image") val image: CoinImage,
-    @SerializedName("description") val description: CoinImage
+    @SerializedName("description") val description: CoinDescription
 )

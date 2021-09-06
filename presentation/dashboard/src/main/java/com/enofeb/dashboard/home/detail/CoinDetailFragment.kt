@@ -95,7 +95,7 @@ fun CoinDetailScreen(viewModel: CoinDetailViewModel) {
         ) {
             val scroll = rememberScrollState(0)
             Header()
-            Body(scroll)
+            Body(scroll, coin.description.detail)
             Title(scroll.value, coin.name, coin.symbol)
             Image(
                 imageUrl = coin.image.large,
@@ -192,6 +192,7 @@ fun Title(scroll: Int, name: String, symbol: String) {
         modifier = Modifier
             .heightIn(min = TitleHeight)
             .statusBarsPadding()
+            .fillMaxWidth()
             .graphicsLayer { translationY = offset }
             .background(color = MaterialTheme.colors.background)
     ) {
@@ -207,7 +208,8 @@ fun Title(scroll: Int, name: String, symbol: String) {
 
 @Composable
 fun Body(
-    scroll: ScrollState
+    scroll: ScrollState,
+    detail: String
 ) {
     Column {
         Spacer(
@@ -221,7 +223,17 @@ fun Body(
         ) {
             Spacer(Modifier.height(GradientScroll))
             Surface(Modifier.fillMaxWidth()) {
-                //Body will be here
+                Column {
+                    Spacer(Modifier.height(ImageOverlap))
+                    Spacer(Modifier.height(TitleHeight))
+
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        text = detail,
+                        modifier = HzPadding
+                    )
+                    Spacer(Modifier.height(16.dp))
+                }
             }
         }
     }

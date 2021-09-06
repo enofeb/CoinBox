@@ -1,6 +1,7 @@
 package com.enofeb.dashboard.home.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import androidx.compose.ui.util.lerp
 import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.dashboard.R
+import com.enofeb.dashboard.home.HomeFragment.Companion.COIN_ID
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlin.math.min
@@ -41,11 +43,21 @@ private val TitleHeight = 128.dp
 private val MaxTitleOffset = ImageOverlap + MinTitleOffset + GradientScroll
 private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
-
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment() {
 
     private val viewModel by viewModels<CoinDetailViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            viewModel.apply {
+                id = it.getString(COIN_ID)
+                getCoinDetail()
+            }
+        }
+    }
 
     @ExperimentalMaterialApi
     @ExperimentalPagerApi

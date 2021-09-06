@@ -51,10 +51,17 @@ class HomeFragment : BaseFragment() {
         setContent {
             ComposeMagic {
                 CoinScreen(viewModel) {
-                    findNavController().navigate(R.id.action_home_to_coinDetail)
+                    val bundle = Bundle().apply {
+                        this.putString(COIN_ID, it)
+                    }
+                    findNavController().navigate(R.id.action_home_to_coinDetail, bundle)
                 }
             }
         }
+    }
+
+    companion object {
+        const val COIN_ID = "coin_id"
     }
 
 }

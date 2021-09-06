@@ -1,5 +1,6 @@
 package com.enofeb.dashboard.home.detail
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.enofeb.core.base.BaseViewModel
 import com.enofeb.core.domain.market.MarketRepository
@@ -21,12 +22,7 @@ class CoinDetailViewModel @Inject constructor(
 
     val coinDetailState: StateFlow<CoinDetailState> = _coinDetailState
 
-    init {
-        getCoinDetail()
-    }
-
-    private fun getCoinDetail() {
-
+    fun getCoinDetail() {
         id?.let { coinId ->
             marketRepository.getCoinDetail(coinId).onEach {
                 _coinDetailState.value = CoinDetailState(it)

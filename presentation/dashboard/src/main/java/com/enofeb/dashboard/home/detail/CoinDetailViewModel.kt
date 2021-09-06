@@ -24,8 +24,10 @@ class CoinDetailViewModel @Inject constructor(
 
     fun getCoinDetail() {
         id?.let { coinId ->
-            marketRepository.getCoinDetail(coinId).onEach {
-                _coinDetailState.value = CoinDetailState(it)
+            marketRepository.getCoinDetail(coinId).onEach {coinDetail->
+                coinDetail?.let {
+                    _coinDetailState.value = CoinDetailState(it)
+                }
                 _loadingState.value = LoadingState((false))
             }.catch {
                 _errorState.value = ErrorState(it.message)

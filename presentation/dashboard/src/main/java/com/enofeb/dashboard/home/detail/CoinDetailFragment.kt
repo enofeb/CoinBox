@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.*
 import com.enofeb.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,26 +70,31 @@ class CoinDetailFragment : BaseFragment() {
     ): View = ComposeView(requireContext()).apply {
         setContent {
             ComposeMagic {
-                CoinDetailScreen()
+                CoinDetailScreen(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun CoinDetailScreen() {
-    Box(
-        Modifier
-            .fillMaxSize()
-    ) {
-        val scroll = rememberScrollState(0)
-        Header()
-        Body(scroll)
-        Title(scroll.value)
-        Image(
-            imageUrl = "https://assets.coingecko.com/coins/images/17659/large/Icon_Reverse.png?1628759092",
-            scroll = scroll.value
-        )
+fun CoinDetailScreen(viewModel: CoinDetailViewModel) {
+
+    val state = viewModel.coinDetailState.collectAsState().value
+
+    state.coinDetail?.let { coin->
+        Box(
+            Modifier
+                .fillMaxSize()
+        ) {
+            val scroll = rememberScrollState(0)
+            Header()
+            Body(scroll)
+            Title(scroll.value, coin.name, coin.symbol)
+            Image(
+                imageUrl = coin.image.large,
+                scroll = scroll.value
+            )
+        }
     }
 }
 
@@ -168,7 +175,7 @@ fun Header() {
 }
 
 @Composable
-fun Title(scroll: Int) {
+fun Title(scroll: Int, name: String, symbol: String) {
     val maxOffSet = with(LocalDensity.current) { MaxTitleOffset.toPx() }
     val minOffSet = with(LocalDensity.current) { MinTitleOffset.toPx() }
     val offset = (maxOffSet - scroll).coerceAtLeast(minOffSet)
@@ -182,7 +189,11 @@ fun Title(scroll: Int) {
             .background(color = MaterialTheme.colors.background)
     ) {
         Spacer(Modifier.height(16.dp))
-        //Title will be here
+
+        Text(text = name, modifier = HzPadding, style = MaterialTheme.typography.h4)
+
+        Text(text = symbol.uppercase(), modifier = HzPadding, style = MaterialTheme.typography.h4)
+
         Spacer(Modifier.height(8.dp))
     }
 }

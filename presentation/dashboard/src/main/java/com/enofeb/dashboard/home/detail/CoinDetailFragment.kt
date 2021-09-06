@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.*
 import com.enofeb.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.ui.util.lerp
+import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.dashboard.R
 import com.google.accompanist.insets.statusBarsPadding
@@ -43,6 +44,8 @@ private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment() {
+
+    private val viewModel by viewModels<CoinDetailViewModel>()
 
     @ExperimentalMaterialApi
     @ExperimentalPagerApi

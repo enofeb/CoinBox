@@ -62,4 +62,5 @@ dependencies {
     implementation Libraries.composeInsets
     implementation Libraries.composePager
     implementation Libraries.composePagerIndicator
+    implementation Libraries.composeUtil
 }

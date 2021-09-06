@@ -1,9 +1,197 @@
 package com.enofeb.dashboard.home.detail
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.*
 import com.enofeb.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.compose.ui.util.lerp
+import coil.compose.rememberImagePainter
+import com.enofeb.dashboard.R
+import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlin.math.min
+import kotlin.math.max
+
+private val ExpandedImageSize = 300.dp
+private val CollapsedImageSize = 150.dp
+private val ImageOverlap = 115.dp
+private val GradientScroll = 180.dp
+private val MinTitleOffset = 56.dp
+private val MinImageOffset = 12.dp
+private val TitleHeight = 128.dp
+private val MaxTitleOffset = ImageOverlap + MinTitleOffset + GradientScroll
+private val HzPadding = Modifier.padding(horizontal = 24.dp)
+
 
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment() {
 
+    @ExperimentalMaterialApi
+    @ExperimentalPagerApi
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            ComposeMagic {
+                CoinDetailScreen()
+            }
+        }
+    }
 }
+
+@Composable
+fun CoinDetailScreen() {
+    Box(
+        Modifier
+            .fillMaxSize()
+    ) {
+        val scroll = rememberScrollState(0)
+        Header()
+        Body(scroll)
+        Title(scroll.value)
+        Image(
+            imageUrl = "https://assets.coingecko.com/coins/images/17659/large/Icon_Reverse.png?1628759092",
+            scroll = scroll.value
+        )
+    }
+}
+
+//From Jetsnack google docs
+@Composable
+fun CollapsableImageLayout(
+    collapseFraction: Float,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Layout(modifier = modifier, content = content) { measurables, contraints ->
+        check(measurables.size == 1)
+
+        val imageMaxSize = min(ExpandedImageSize.roundToPx(), contraints.maxWidth)
+        val imageMinSize = max(CollapsedImageSize.roundToPx(), contraints.minWidth)
+        val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
+        val imagePlaceable = measurables[0].measure(Constraints.fixed(imageWidth, imageWidth))
+
+        val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
+        val imageX = lerp(
+            (contraints.maxWidth - imageWidth) / 2,
+            contraints.maxWidth - imageWidth,
+            collapseFraction
+        )
+
+        layout(
+            width = contraints.maxWidth,
+            height = imageY + imageWidth
+        ) {
+            imagePlaceable.placeRelative(imageX, imageY)
+        }
+
+    }
+}
+
+@Composable
+fun Image(
+    imageUrl: String,
+    scroll: Int
+) {
+    val collapseRange = with(LocalDensity.current) {
+        (MaxTitleOffset - MinTitleOffset).toPx()
+    }
+    val collapseFraction = (scroll / collapseRange).coerceIn(0f, 1f)
+
+    CollapsableImageLayout(
+        collapseFraction = collapseFraction,
+        modifier = HzPadding.then(Modifier.statusBarsPadding())
+    ) {
+        Surface(
+            color = Color.LightGray,
+            elevation = 0.dp,
+            shape = CircleShape
+        ) {
+            Image(
+                painter = rememberImagePainter(data = imageUrl,
+                    builder = {
+                        crossfade(true)
+                        placeholder(drawableResId = R.drawable.ic_z_cash)
+                    }),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+
+        }
+    }
+}
+
+@Composable
+fun Header() {
+    Spacer(
+        modifier = Modifier
+            .height(280.dp)
+            .fillMaxWidth()
+            .background(Brush.horizontalGradient(listOf(Color.Green, Color.DarkGray)))
+    )
+}
+
+@Composable
+fun Title(scroll: Int) {
+    val maxOffSet = with(LocalDensity.current) { MaxTitleOffset.toPx() }
+    val minOffSet = with(LocalDensity.current) { MinTitleOffset.toPx() }
+    val offset = (maxOffSet - scroll).coerceAtLeast(minOffSet)
+
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        modifier = Modifier
+            .heightIn(min = TitleHeight)
+            .statusBarsPadding()
+            .graphicsLayer { translationY = offset }
+            .background(color = MaterialTheme.colors.background)
+    ) {
+        Spacer(Modifier.height(16.dp))
+        //Title will be here
+        Spacer(Modifier.height(8.dp))
+    }
+}
+
+@Composable
+fun Body(
+    scroll: ScrollState
+) {
+    Column {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .height(MinTitleOffset)
+        )
+        Column(
+            modifier = Modifier.verticalScroll(scroll)
+        ) {
+            Spacer(Modifier.height(GradientScroll))
+            Surface(Modifier.fillMaxWidth()) {
+                //Body will be here
+            }
+        }
+    }
+}
+
+

@@ -54,6 +54,7 @@ object Libraries {
         "com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}"
     const val composePagerIndicator =
         "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanistVersion}"
+    const val composeUtil = "androidx.compose.ui:ui-util:${Versions.compose}"
 }
 
 object TestLibraries {

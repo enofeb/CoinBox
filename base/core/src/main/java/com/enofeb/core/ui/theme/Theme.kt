@@ -2,6 +2,7 @@ package com.enofeb.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
@@ -35,9 +36,11 @@ fun CoinBoxTheme(
 ) {
     val colors = DarkColorPalette
 
+    val typography = Typography(defaultFontFamily = Montserrat)
+
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = typography,
         shapes = Shapes,
         content = content
     )

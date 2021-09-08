@@ -1,6 +1,7 @@
 package com.enofeb.dashboard.home.detail
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.*
 import com.enofeb.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.ui.util.lerp
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.dashboard.R
@@ -95,7 +97,7 @@ fun CoinDetailScreen(viewModel: CoinDetailViewModel) {
         ) {
             val scroll = rememberScrollState(0)
             Header()
-            Body(scroll, coin.description.detail)
+            Body(scroll, Html.fromHtml(coin.description.detail).toString())
             Title(scroll.value, coin.name, coin.symbol)
             Image(
                 imageUrl = coin.image.large,

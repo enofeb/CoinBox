@@ -1,6 +1,9 @@
-# CoinBox (Still baking 👨🏽‍🍳)
+<h1 align="center">CoinBox</h1>
 
-This project is using coinbase.com api. Waiting functionalites are checking exchange rates, currencies and wallet. You can change your money with any coin.
+<p align="center">
+CoinBox is a small currency tracker app which is developed with Jetpack Compose. You can track coins with different categories.
+Moreover you can check return value of bitcoin in different alt coin. It is possible to be informed with coins descriptions.
+</p>
 
 ![Screens](app/src/main/res/drawable-v24/screens.png)
 

@@ -24,12 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.enofeb.core.data.price.exchange.ExchangeRate
-import kotlin.math.exp
+import com.enofeb.core.ui.dimens.DefaultPadding
+import com.enofeb.core.ui.dimens.SmallPadding
 
 @AndroidEntryPoint
 class PriceFragment : BaseFragment() {
@@ -77,34 +77,34 @@ fun ConverterContent(
         verticalArrangement = Arrangement.Center
     ) {
         PriceHeaderField(icon = R.drawable.ic_change, "BTC Converter")
-        Row(Modifier.padding(top = 15.dp)) {
+        Row(Modifier.padding(top = DefaultPadding)) {
             Column(
                 modifier = Modifier
                     .weight(4f)
-                    .padding(start = 15.dp, end = 15.dp)
+                    .padding(start = DefaultPadding, end = DefaultPadding)
             ) {
                 SellTextField(onPriceChange = onPriceChange)
             }
             Column(
                 modifier = Modifier
                     .weight(2f)
-                    .padding(end = 15.dp)
+                    .padding(end = DefaultPadding)
             ) {
                 CurrencyDropDown(currencyList, isBitcoin = true)
             }
         }
-        Row(Modifier.padding(top = 15.dp)) {
+        Row(Modifier.padding(top = DefaultPadding)) {
             Column(
                 modifier = Modifier
                     .weight(4f)
-                    .padding(start = 15.dp, end = 15.dp)
+                    .padding(start = DefaultPadding, end = DefaultPadding)
             ) {
                 BuyTextField(buyPrice)
             }
             Column(
                 modifier = Modifier
                     .weight(2f)
-                    .padding(end = 15.dp)
+                    .padding(end = DefaultPadding)
             ) {
                 CurrencyDropDown(
                     currencyList,
@@ -189,12 +189,12 @@ fun CurrencyDropDown(
 
 @Composable
 fun PriceHeaderField(icon: Int, text: String) {
-    Row(Modifier.padding(start = 15.dp)) {
+    Row(Modifier.padding(start = DefaultPadding)) {
         Icon(painter = painterResource(id = icon), contentDescription = null)
         Text(
             text = text,
             modifier = Modifier
-                .padding(start = 5.dp)
+                .padding(start = SmallPadding)
                 .align(Alignment.CenterVertically)
         )
     }

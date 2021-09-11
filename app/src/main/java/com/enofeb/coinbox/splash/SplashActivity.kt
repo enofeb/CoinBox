@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.enofeb.coinbox.R
 import com.enofeb.coinbox.home.HomeActivity
+import com.enofeb.core.ui.dimens.DefaultPadding
 import kotlinx.coroutines.*
 
 class SplashActivity : ComponentActivity() {
@@ -79,7 +80,7 @@ fun InitialView() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF0F8FF))
-            .padding(16.dp),
+            .padding(DefaultPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

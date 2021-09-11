@@ -30,6 +30,7 @@ import androidx.compose.ui.util.lerp
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
+import com.enofeb.core.ui.dimens.DefaultPadding
 import com.enofeb.dashboard.R
 import com.enofeb.dashboard.home.HomeFragment.Companion.COIN_ID
 import com.enofeb.dashboard.home.ShowProgress
@@ -198,7 +199,7 @@ fun Title(scroll: Int, name: String, symbol: String) {
             .graphicsLayer { translationY = offset }
             .background(color = MaterialTheme.colors.background)
     ) {
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(DefaultPadding))
 
         Text(text = name, modifier = HzPadding, style = MaterialTheme.typography.h4)
 
@@ -229,12 +230,12 @@ fun Body(
                     Spacer(Modifier.height(ImageOverlap))
                     Spacer(Modifier.height(TitleHeight))
 
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(DefaultPadding))
                     Text(
                         text = detail,
                         modifier = HzPadding
                     )
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(DefaultPadding))
                 }
             }
         }

@@ -31,6 +31,8 @@ import com.enofeb.core.extensions.addPercentage
 import com.enofeb.core.extensions.addVolPrefix
 import com.enofeb.core.extensions.formatNumber
 import com.enofeb.core.extensions.roundOffDecimal
+import com.enofeb.core.ui.dimens.DefaultPadding
+import com.enofeb.core.ui.dimens.SmallPadding
 import com.enofeb.core.ui.theme.MindGreen
 import com.enofeb.dashboard.R
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -125,12 +127,12 @@ fun CoinItem(coin: Coin, onItemClick: (String) -> Unit) {
         modifier =
         Modifier
             .fillMaxWidth()
-            .padding(15.dp), elevation = 10.dp,
+            .padding(DefaultPadding), elevation = 10.dp,
         backgroundColor = Color.Black,
         onClick = { onItemClick.invoke(coin.id) }
     ) {
         Row(
-            modifier = Modifier.padding(15.dp),
+            modifier = Modifier.padding(DefaultPadding),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -139,10 +141,10 @@ fun CoinItem(coin: Coin, onItemClick: (String) -> Unit) {
                     painter = rememberImagePainter(coin.imageUrl),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(15.dp, 15.dp)
+                        .size(DefaultPadding, DefaultPadding)
                         .align(Alignment.CenterVertically)
                 )
-                Column(Modifier.padding(start = 5.dp)) {
+                Column(Modifier.padding(start = SmallPadding)) {
                     Text(
                         text = coin.symbol.uppercase(),
                         color = Color.White
@@ -262,7 +264,7 @@ fun PercentageCard(value: String, color: Color) {
     Card(
         backgroundColor = color
     ) {
-        Text(text = value, color = Color.White, modifier = Modifier.padding(5.dp), fontSize = 14.sp)
+        Text(text = value, color = Color.White, modifier = Modifier.padding(SmallPadding), fontSize = 14.sp)
     }
 }
 
@@ -273,11 +275,11 @@ fun ItemPreview() {
         modifier =
         Modifier
             .fillMaxWidth()
-            .padding(15.dp), elevation = 10.dp,
+            .padding(DefaultPadding), elevation = 10.dp,
         backgroundColor = Color.Black
     ) {
         Row(
-            modifier = Modifier.padding(15.dp),
+            modifier = Modifier.padding(DefaultPadding),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -299,7 +301,7 @@ fun ItemPreview() {
                 Text(
                     text = "+%1.20",
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier.padding(SmallPadding),
                     fontSize = 14.sp
                 )
             }

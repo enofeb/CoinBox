@@ -40,6 +40,10 @@ import com.google.accompanist.pager.rememberPagerState
 import dagger.hilt.android.AndroidEntryPoint
 import com.google.accompanist.pager.*
 
+private val CoinImageSize = 10.dp
+private val CoinElevation = 10.dp
+private val ToolbarHeight = 32.dp
+
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
@@ -127,7 +131,7 @@ fun CoinItem(coin: Coin, onItemClick: (String) -> Unit) {
         modifier =
         Modifier
             .fillMaxWidth()
-            .padding(DefaultPadding), elevation = 10.dp,
+            .padding(DefaultPadding), elevation = CoinElevation,
         backgroundColor = Color.Black,
         onClick = { onItemClick.invoke(coin.id) }
     ) {
@@ -245,7 +249,7 @@ fun MarketOrderTabsContent(
 @Composable
 fun HomeAppBar() {
     TopAppBar(modifier = Modifier.fillMaxWidth()) {
-        Box(Modifier.height(32.dp)) {
+        Box(Modifier.height(ToolbarHeight)) {
             Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(R.drawable.ic_z_cash),
@@ -264,7 +268,12 @@ fun PercentageCard(value: String, color: Color) {
     Card(
         backgroundColor = color
     ) {
-        Text(text = value, color = Color.White, modifier = Modifier.padding(SmallPadding), fontSize = 14.sp)
+        Text(
+            text = value,
+            color = Color.White,
+            modifier = Modifier.padding(SmallPadding),
+            fontSize = 14.sp
+        )
     }
 }
 
@@ -275,7 +284,7 @@ fun ItemPreview() {
         modifier =
         Modifier
             .fillMaxWidth()
-            .padding(DefaultPadding), elevation = 10.dp,
+            .padding(DefaultPadding), elevation = CoinElevation,
         backgroundColor = Color.Black
     ) {
         Row(
@@ -287,7 +296,7 @@ fun ItemPreview() {
                 Image(
                     painter = rememberImagePainter("https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880"),
                     contentDescription = null,
-                    Modifier.size(10.dp, 10.dp)
+                    Modifier.size(CoinImageSize, CoinImageSize)
                 )
                 Column {
                     Text(text = "ETH", color = Color.White)

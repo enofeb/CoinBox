@@ -4,3 +4,5 @@ import androidx.compose.ui.unit.dp
 
 val SmallPadding = 5.dp
 val DefaultPadding = 16.dp
+
+val SmallSpace = 8.dp

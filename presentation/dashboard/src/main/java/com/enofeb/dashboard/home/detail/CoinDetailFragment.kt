@@ -31,6 +31,7 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.core.ui.dimens.DefaultPadding
+import com.enofeb.core.ui.dimens.SmallSpace
 import com.enofeb.dashboard.R
 import com.enofeb.dashboard.home.HomeFragment.Companion.COIN_ID
 import com.enofeb.dashboard.home.ShowProgress
@@ -46,6 +47,7 @@ private val GradientScroll = 180.dp
 private val MinTitleOffset = 56.dp
 private val MinImageOffset = 12.dp
 private val TitleHeight = 128.dp
+private val HeaderHeight = 280.dp
 private val MaxTitleOffset = ImageOverlap + MinTitleOffset + GradientScroll
 private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
@@ -156,7 +158,6 @@ fun Image(
     ) {
         Surface(
             color = Color.LightGray,
-            elevation = 0.dp,
             shape = CircleShape
         ) {
             Image(
@@ -178,7 +179,7 @@ fun Image(
 fun Header() {
     Spacer(
         modifier = Modifier
-            .height(280.dp)
+            .height(HeaderHeight)
             .fillMaxWidth()
             .background(Brush.horizontalGradient(listOf(Color.Green, Color.DarkGray)))
     )
@@ -205,7 +206,7 @@ fun Title(scroll: Int, name: String, symbol: String) {
 
         Text(text = symbol.uppercase(), modifier = HzPadding, style = MaterialTheme.typography.h4)
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(SmallSpace))
     }
 }
 

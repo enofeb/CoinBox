@@ -31,6 +31,7 @@ import com.enofeb.core.extensions.addPercentage
 import com.enofeb.core.extensions.addVolPrefix
 import com.enofeb.core.extensions.formatNumber
 import com.enofeb.core.extensions.roundOffDecimal
+import com.enofeb.core.ui.theme.MindGreen
 import com.enofeb.dashboard.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -160,7 +161,7 @@ fun CoinItem(coin: Coin, onItemClick: (String) -> Unit) {
             PercentageCard(
                 coin.changePercentage.roundOffDecimal().addPercentage(),
                 if (coin.changePercentage > 0) {
-                    Color.Green
+                    MindGreen
                 } else {
                     Color.Red
                 }
@@ -214,7 +215,7 @@ fun MarketOrderTabsContent(
     isLoading: Boolean?
 ) {
 
-    if (isLoading==true){
+    if (isLoading == true) {
         ShowProgress()
     }
 
@@ -293,7 +294,7 @@ fun ItemPreview() {
             }
             Text(text = "3224.5", color = Color.White)
             Card(
-                backgroundColor = Color.Green
+                backgroundColor = MindGreen
             ) {
                 Text(
                     text = "+%1.20",

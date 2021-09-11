@@ -2,6 +2,8 @@
 
 This project is using coinbase.com api. Waiting functionalites are checking exchange rates, currencies and wallet. You can change your money with any coin.
 
+![Screens](app/src/main/res/drawable-v24/screens.png)
+
 # Technologies
 - Dagger Hilt
 - Jetpack Compose

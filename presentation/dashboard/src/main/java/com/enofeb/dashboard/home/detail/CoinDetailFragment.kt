@@ -2,7 +2,6 @@ package com.enofeb.dashboard.home.detail
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,12 +21,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.*
 import com.enofeb.core.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.ui.util.lerp
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import coil.compose.rememberImagePainter
 import com.enofeb.core.ui.dimens.DefaultPadding

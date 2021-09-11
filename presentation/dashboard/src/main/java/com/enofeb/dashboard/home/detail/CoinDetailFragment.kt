@@ -178,7 +178,7 @@ fun Header() {
         modifier = Modifier
             .height(HeaderHeight)
             .fillMaxWidth()
-            .background(Brush.horizontalGradient(listOf(Color.Green, Color.DarkGray)))
+            .background(Brush.horizontalGradient(listOf(Color.White, Color.DarkGray)))
     )
 }
 
